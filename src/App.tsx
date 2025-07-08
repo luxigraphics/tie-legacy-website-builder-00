@@ -15,6 +15,7 @@ import BlogPost from "./pages/BlogPost";
 import Privacy from "./pages/Privacy";
 import Terms from "./pages/Terms";
 import NotFound from "./pages/NotFound";
+import DisclaimerPopup from "./components/DisclaimerPopup";
 
 const queryClient = new QueryClient();
 
@@ -34,6 +35,7 @@ const App = () => (
     <TooltipProvider>
       <Toaster />
       <Sonner />
+      <DisclaimerPopup />
       <BrowserRouter>
         <ScrollToTop />
         <Routes>

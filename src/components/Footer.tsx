@@ -12,14 +12,14 @@ const Footer = () => {
               <Link to="/">
                 <img 
                   src="/lovable-uploads/277f1b46-80f1-4bc3-85ff-7189eedb6bea.png" 
-                  alt="Consultancy Logo" 
+                  alt="Tiewalavakil Logo" 
                   className="h-16 md:h-20 w-auto"
                 />
               </Link>
             </div>
             <p className="text-slate-600 mb-4 md:mb-6 leading-relaxed text-sm md:text-base lg:text-lg">
-              Premium consultancy services with cutting-edge AI solutions. 
-              We simplify complex business challenges with expert guidance and innovative technology.
+              Tiewalavakil - Professional legal consultancy services with expert guidance. 
+              We provide comprehensive legal solutions for all your legal needs.
             </p>
           </div>
           <div>
@@ -33,20 +33,20 @@ const Footer = () => {
                 <MessageCircle className="w-4 h-4 md:w-5 md:h-5 mr-2 md:mr-3" />
                 WhatsApp: 7037455191
               </div>
-              <div className="text-sm md:text-base lg:text-lg">Email: contact@consultancy.com</div>
+              <div className="text-sm md:text-base lg:text-lg">Email: contact@tiewalavakil.com</div>
             </div>
             <div className="flex space-x-3 md:space-x-4 mt-4 md:mt-6">
-              <a href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer">
+              <a href="https://www.facebook.com/ajayshankarsharmatiewalavakil/" target="_blank" rel="noopener noreferrer">
                 <div className="w-8 h-8 md:w-10 md:h-10 bg-blue-600 rounded flex items-center justify-center cursor-pointer hover:bg-blue-700 transition-colors">
                   <Facebook className="w-4 h-4 md:w-5 md:h-5 text-white" />
                 </div>
               </a>
-              <a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer">
+              <a href="https://www.instagram.com/ajayshankarsharma.tiewalavakil/" target="_blank" rel="noopener noreferrer">
                 <div className="w-8 h-8 md:w-10 md:h-10 bg-pink-600 rounded flex items-center justify-center cursor-pointer hover:bg-pink-700 transition-colors">
                   <Instagram className="w-4 h-4 md:w-5 md:h-5 text-white" />
                 </div>
               </a>
-              <a href="https://www.youtube.com/" target="_blank" rel="noopener noreferrer">
+              <a href="https://www.youtube.com/@Tiewalavakil" target="_blank" rel="noopener noreferrer">
                 <div className="w-8 h-8 md:w-10 md:h-10 bg-red-600 rounded flex items-center justify-center cursor-pointer hover:bg-red-700 transition-colors">
                   <Youtube className="w-4 h-4 md:w-5 md:h-5 text-white" />
                 </div>
@@ -61,8 +61,6 @@ const Footer = () => {
               <div><Link to="/blog" className="hover:text-slate-800 transition-colors text-sm md:text-base lg:text-lg">Blog</Link></div>
               <div><Link to="/book-consultant" className="hover:text-slate-800 transition-colors text-sm md:text-base lg:text-lg">Book Consultant</Link></div>
               <div><Link to="/contact" className="hover:text-slate-800 transition-colors text-sm md:text-base lg:text-lg">Contact</Link></div>
-              <div><Link to="/privacy" className="hover:text-slate-800 transition-colors text-sm md:text-base lg:text-lg">Privacy Policy</Link></div>
-              <div><Link to="/terms" className="hover:text-slate-800 transition-colors text-sm md:text-base lg:text-lg">Terms & Conditions</Link></div>
             </div>
           </div>
           <div>
@@ -70,13 +68,21 @@ const Footer = () => {
             <div className="text-slate-600 space-y-2 md:space-y-3">
               <p className="text-sm md:text-base lg:text-lg flex items-start">
                 <MapPin className="w-4 h-4 md:w-5 md:h-5 mr-2 mt-1 flex-shrink-0" />
-                123 Business Street, Suite 100, New York, NY 10001
+                Chamber no. 4, Tehsil Compound Hapur - 245101, Uttar Pradesh
               </p>
+              <a 
+                href="https://maps.google.com/?q=PQJG+28+Hapur,+Uttar+Pradesh,+India" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="text-blue-600 hover:text-blue-800 transition-colors text-sm md:text-base lg:text-lg inline-block"
+              >
+                View on Google Maps
+              </a>
             </div>
           </div>
         </div>
         <div className="border-t border-slate-300 mt-6 md:mt-8 lg:mt-12 pt-4 md:pt-6 lg:pt-8 text-center text-slate-500">
-          <p className="text-sm md:text-base lg:text-lg">&copy; 2024 Premium Consultancy. All rights reserved.</p>
+          <p className="text-sm md:text-base lg:text-lg">&copy; 2024 Tiewalavakil. All rights reserved.</p>
         </div>
       </div>
     </footer>
