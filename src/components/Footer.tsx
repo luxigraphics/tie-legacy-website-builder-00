@@ -33,7 +33,7 @@ const Footer = () => {
                 <MessageCircle className="w-4 h-4 md:w-5 md:h-5 mr-2 md:mr-3" />
                 WhatsApp: 7037455191
               </div>
-              <div className="text-sm md:text-base lg:text-lg">Email: contact@tiewalavakil.com</div>
+              <div className="text-sm md:text-base lg:text-lg">Email: contact@tiewalavakil.in</div>
             </div>
             <div className="flex space-x-3 md:space-x-4 mt-4 md:mt-6">
               <a href="https://www.facebook.com/ajayshankarsharmatiewalavakil/" target="_blank" rel="noopener noreferrer">
@@ -78,6 +78,19 @@ const Footer = () => {
               >
                 View on Google Maps
               </a>
+              <div className="mt-3 md:mt-4">
+                <iframe
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3497.8!2d77.77!3d28.73!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390cf1c8c8c8c8c8%3A0x8c8c8c8c8c8c8c8!2sPQJG%2B28%20Hapur%2C%20Uttar%20Pradesh%2C%20India!5e0!3m2!1sen!2sin!4v1234567890!5m2!1sen!2sin"
+                  width="100%"
+                  height="120"
+                  style={{ border: 0 }}
+                  allowFullScreen
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                  className="rounded-md border border-slate-300"
+                  title="Office Location Map"
+                ></iframe>
+              </div>
             </div>
           </div>
         </div>
