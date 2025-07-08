@@ -1,3 +1,4 @@
+
 import { Phone, MessageCircle, Calendar, Clock, Video, User, Mail, FileText, CheckCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -22,11 +23,36 @@ const BookConsultant = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    
+    // Create email content
+    const subject = `Consultation Request from ${formData.name}`;
+    const body = `
+Name: ${formData.name}
+Email: ${formData.email}
+Phone: ${formData.phone}
+Consultation Type: ${formData.consultationType}
+
+Message:
+${formData.message}
+
+Sent from Tiewalavakil Website
+    `.trim();
+
+    // Create mailto link
+    const mailtoLink = `mailto:tiewalavakil@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    
+    // Open default email client
+    window.location.href = mailtoLink;
+    
     toast({
-      title: "Consultation Request Sent",
-      description: "We will contact you within 30 minutes for your consultation.",
+      title: "Email Client Opened",
+      description: "Your default email client has been opened with the consultation request. Please send the email to complete your booking.",
     });
-    setFormData({ name: "", email: "", phone: "", consultationType: "", message: "" });
+    
+    // Reset form after a short delay
+    setTimeout(() => {
+      setFormData({ name: "", email: "", phone: "", consultationType: "", message: "" });
+    }, 1000);
   };
 
   const consultationTypes = [
@@ -78,7 +104,7 @@ const BookConsultant = () => {
               <div className="w-40 h-52 md:w-48 md:h-64 rounded-xl overflow-hidden border-4 border-primary shadow-2xl">
                 <img 
                   src="/lovable-uploads/a5616b2f-0963-4545-87ba-000cd45c804a.png" 
-                  alt="Advocate Ajay Shankar Sharma" 
+                  alt="Advocate Ajay Shankar Sharma - Professional Legal Consultant" 
                   className="w-full h-full object-cover"
                 />
               </div>
@@ -97,12 +123,12 @@ const BookConsultant = () => {
             {consultationTypes.map((type, index) => (
               <Card key={index} className="text-center p-4 md:p-6 hover:shadow-xl transition-all duration-300 border-2 hover:border-primary/50">
                 <CardContent className="p-4 md:p-6">
-                  <type.icon className="w-10 h-10 md:w-12 md:h-12 text-primary mx-auto mb-3 md:mb-4" />
+                  <type.icon className="w-10 h-10 md:w-12 md:h-12 text-primary mx-auto mb-3 md:mb-4" aria-hidden="true" />
                   <h3 className="text-lg md:text-xl font-bold text-primary mb-2">{type.title}</h3>
                   <p className="text-muted-foreground mb-3 md:mb-4 text-sm md:text-base">{type.description}</p>
                   <div className="space-y-2">
                     <div className="flex items-center justify-center text-xs md:text-sm text-muted-foreground">
-                      <Clock className="w-3 h-3 md:w-4 md:h-4 mr-2" />
+                      <Clock className="w-3 h-3 md:w-4 md:h-4 mr-2" aria-hidden="true" />
                       {type.duration}
                     </div>
                     <div className="text-xl md:text-2xl font-bold text-primary">{type.price}</div>
@@ -135,6 +161,7 @@ const BookConsultant = () => {
                         required
                         placeholder="Enter your full name"
                         className="mt-1"
+                        aria-describedby="name-help"
                       />
                     </div>
                     <div>
@@ -147,6 +174,7 @@ const BookConsultant = () => {
                         required
                         placeholder="Enter your phone number"
                         className="mt-1"
+                        aria-describedby="phone-help"
                       />
                     </div>
                   </div>
@@ -160,6 +188,7 @@ const BookConsultant = () => {
                       onChange={(e) => setFormData({...formData, email: e.target.value})}
                       placeholder="Enter your email address"
                       className="mt-1"
+                      aria-describedby="email-help"
                     />
                   </div>
 
@@ -171,6 +200,7 @@ const BookConsultant = () => {
                       onChange={(e) => setFormData({...formData, consultationType: e.target.value})}
                       required
                       className="w-full p-2 md:p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-primary focus:border-transparent mt-1 text-sm md:text-base"
+                      aria-describedby="consultation-help"
                     >
                       <option value="">Select consultation type</option>
                       <option value="phone">Phone Consultation - ₹500</option>
@@ -190,12 +220,13 @@ const BookConsultant = () => {
                       placeholder="Please describe your legal issue in detail..."
                       rows={4}
                       className="mt-1"
+                      aria-describedby="message-help"
                     />
                   </div>
 
                   <Button type="submit" className="w-full text-base md:text-lg font-semibold py-3 md:py-4">
-                    <Calendar className="w-4 h-4 md:w-5 md:h-5 mr-2" />
-                    Book Consultation Now
+                    <Calendar className="w-4 h-4 md:w-5 md:h-5 mr-2" aria-hidden="true" />
+                    Send Consultation Request
                   </Button>
                 </form>
               </CardContent>
@@ -213,7 +244,7 @@ const BookConsultant = () => {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
             <Card className="text-center p-4 md:p-6 hover:shadow-lg transition-all duration-300">
               <CardContent className="p-4 md:p-6">
-                <CheckCircle className="w-10 h-10 md:w-12 md:h-12 text-green-500 mx-auto mb-3 md:mb-4" />
+                <CheckCircle className="w-10 h-10 md:w-12 md:h-12 text-green-500 mx-auto mb-3 md:mb-4" aria-hidden="true" />
                 <h3 className="text-lg md:text-xl font-bold text-primary mb-2">Immediate Response</h3>
                 <p className="text-muted-foreground text-sm md:text-base">Get response within 30 minutes of booking your consultation request.</p>
               </CardContent>
@@ -221,7 +252,7 @@ const BookConsultant = () => {
 
             <Card className="text-center p-4 md:p-6 hover:shadow-lg transition-all duration-300">
               <CardContent className="p-4 md:p-6">
-                <User className="w-10 h-10 md:w-12 md:h-12 text-blue-500 mx-auto mb-3 md:mb-4" />
+                <User className="w-10 h-10 md:w-12 md:h-12 text-blue-500 mx-auto mb-3 md:mb-4" aria-hidden="true" />
                 <h3 className="text-lg md:text-xl font-bold text-primary mb-2">Expert Guidance</h3>
                 <p className="text-muted-foreground text-sm md:text-base">33+ years of experience in property law and legal consultation.</p>
               </CardContent>
@@ -229,7 +260,7 @@ const BookConsultant = () => {
 
             <Card className="text-center p-4 md:p-6 hover:shadow-lg transition-all duration-300">
               <CardContent className="p-4 md:p-6">
-                <Clock className="w-10 h-10 md:w-12 md:h-12 text-orange-500 mx-auto mb-3 md:mb-4" />
+                <Clock className="w-10 h-10 md:w-12 md:h-12 text-orange-500 mx-auto mb-3 md:mb-4" aria-hidden="true" />
                 <h3 className="text-lg md:text-xl font-bold text-primary mb-2">Flexible Timing</h3>
                 <p className="text-muted-foreground text-sm md:text-base">Schedule consultations at your convenience, including evenings and weekends.</p>
               </CardContent>
@@ -248,15 +279,15 @@ const BookConsultant = () => {
             Don't wait! Call us directly for urgent legal matters. Advocate Ajay Shankar Sharma is available for immediate consultation.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 md:gap-6 justify-center">
-            <a href="tel:7037455191">
+            <a href="tel:7037455191" aria-label="Call Tiewalavakil at 7037455191">
               <Button size="lg" variant="secondary" className="bg-white text-primary font-semibold px-6 md:px-8 py-3 md:py-4 text-base md:text-lg w-full sm:w-auto">
-                <Phone className="w-4 h-4 md:w-5 md:h-5 mr-2" />
+                <Phone className="w-4 h-4 md:w-5 md:h-5 mr-2" aria-hidden="true" />
                 Call Now: 7037455191
               </Button>
             </a>
-            <a href="https://wa.me/917037455191" target="_blank" rel="noopener noreferrer">
+            <a href="https://wa.me/917037455191" target="_blank" rel="noopener noreferrer" aria-label="Contact Tiewalavakil on WhatsApp">
               <Button size="lg" variant="secondary" className="bg-white text-primary font-semibold px-6 md:px-8 py-3 md:py-4 text-base md:text-lg w-full sm:w-auto">
-                <MessageCircle className="w-4 h-4 md:w-5 md:h-5 mr-2" />
+                <MessageCircle className="w-4 h-4 md:w-5 md:h-5 mr-2" aria-hidden="true" />
                 WhatsApp Now
               </Button>
             </a>

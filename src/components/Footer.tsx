@@ -95,7 +95,17 @@ const Footer = () => {
           </div>
         </div>
         <div className="border-t border-slate-300 mt-6 md:mt-8 lg:mt-12 pt-4 md:pt-6 lg:pt-8 text-center text-slate-500">
-          <p className="text-sm md:text-base lg:text-lg">&copy; 2024 Tiewalavakil. All rights reserved.</p>
+          <p className="text-sm md:text-base lg:text-lg">
+            &copy; 2025 Tiewalavakil. All rights reserved. | Presented by{" "}
+            <a 
+              href="https://www.digivizual.com" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="text-blue-600 hover:text-blue-800 transition-colors"
+            >
+              Digivizual.com
+            </a>
+          </p>
         </div>
       </div>
     </footer>
