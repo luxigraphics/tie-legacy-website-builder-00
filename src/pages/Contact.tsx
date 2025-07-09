@@ -1,7 +1,8 @@
 
-import { Phone } from "lucide-react";
+import { Phone, Mail } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
+import { Link } from "react-router-dom";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 
@@ -14,7 +15,7 @@ const Contact = () => {
       <section className="relative w-full">
         <img
           src="/lovable-uploads/740b6791-063e-46d1-8086-ff8484c972a1.png"
-          alt="Contact Us Banner"
+          alt="Contact Us Banner - Tiewalavakil Legal Services"
           className="w-full h-auto object-contain"
         />
       </section>
@@ -38,7 +39,7 @@ const Contact = () => {
                 <h2 className="text-xl md:text-2xl font-bold text-primary mb-4 md:mb-6">
                   Send us a Message
                 </h2>
-                <form className="space-y-4 md:space-y-6">
+                <form className="space-y-4 md:space-y-6" action="mailto:contact@tiewalavakil.in" method="post" encType="text/plain">
                   <div>
                     <label
                       htmlFor="name"
@@ -49,8 +50,10 @@ const Contact = () => {
                     <input
                       type="text"
                       id="name"
+                      name="name"
                       className="w-full px-3 md:px-4 py-2 md:py-3 rounded-md border border-gray-300 shadow-sm focus:border-primary focus:ring-primary text-sm md:text-base"
                       placeholder="Enter your name"
+                      required
                     />
                   </div>
                   <div>
@@ -63,8 +66,10 @@ const Contact = () => {
                     <input
                       type="email"
                       id="email"
+                      name="email"
                       className="w-full px-3 md:px-4 py-2 md:py-3 rounded-md border border-gray-300 shadow-sm focus:border-primary focus:ring-primary text-sm md:text-base"
                       placeholder="Enter your email"
+                      required
                     />
                   </div>
                   <div>
@@ -76,12 +81,15 @@ const Contact = () => {
                     </label>
                     <textarea
                       id="message"
+                      name="message"
                       rows={4}
                       className="w-full px-3 md:px-4 py-2 md:py-3 rounded-md border border-gray-300 shadow-sm focus:border-primary focus:ring-primary text-sm md:text-base resize-vertical"
                       placeholder="Write your message here..."
+                      required
                     />
                   </div>
                   <Button type="submit" className="w-full py-2 md:py-3 text-sm md:text-base">
+                    <Mail className="w-4 h-4 mr-2" aria-hidden="true" />
                     Send Message
                   </Button>
                 </form>
@@ -108,7 +116,7 @@ const Contact = () => {
                       Phone
                     </h3>
                     <p className="text-sm md:text-base text-muted-foreground">
-                      <a href="tel:7037455191" className="hover:text-primary transition-colors">7037455191</a>
+                      <a href="tel:7037455191" className="hover:text-primary transition-colors" aria-label="Call Tiewalavakil at 7037455191">7037455191</a>
                     </p>
                   </div>
                   <div>
@@ -116,7 +124,7 @@ const Contact = () => {
                       Email
                     </h3>
                     <p className="text-sm md:text-base text-muted-foreground">
-                      <a href="mailto:tiewalavakil@gmail.com" className="hover:text-primary transition-colors">tiewalavakil@gmail.com</a>
+                      <a href="mailto:contact@tiewalavakil.in" className="hover:text-primary transition-colors" aria-label="Send email to Tiewalavakil">contact@tiewalavakil.in</a>
                     </p>
                   </div>
                   <div>
@@ -144,14 +152,14 @@ const Contact = () => {
             Contact us today for expert property legal consultation and documentation services
           </p>
           <div className="flex flex-col sm:flex-row gap-3 md:gap-4 justify-center items-center">
-            <a href="/book-consultant" className="w-full sm:w-auto">
+            <Link to="/book-consultant" className="w-full sm:w-auto">
               <Button size="lg" variant="secondary" className="font-semibold px-4 md:px-6 lg:px-8 py-3 md:py-4 w-full sm:w-auto text-sm md:text-base">
                 Book Consultation
               </Button>
-            </a>
-            <a href="tel:7037455191" className="w-full sm:w-auto">
+            </Link>
+            <a href="tel:7037455191" className="w-full sm:w-auto" aria-label="Call Tiewalavakil for immediate assistance">
               <Button size="lg" className="font-semibold px-4 md:px-6 lg:px-8 py-3 md:py-4 border-white text-white bg-transparent border-2 hover:bg-white hover:text-primary transition-colors w-full sm:w-auto text-sm md:text-base">
-                <Phone className="w-4 md:w-5 h-4 md:h-5 mr-2" />
+                <Phone className="w-4 md:w-5 h-4 md:h-5 mr-2" aria-hidden="true" />
                 Call Now
               </Button>
             </a>

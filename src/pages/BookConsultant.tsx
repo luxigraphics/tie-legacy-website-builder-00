@@ -1,4 +1,3 @@
-
 import { Phone, MessageCircle, Calendar, Clock, Video, User, Mail, FileText, CheckCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -7,6 +6,7 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { useState } from "react";
 import { useToast } from "@/hooks/use-toast";
+import { useNavigate } from "react-router-dom";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Newsletter from "@/components/Newsletter";
@@ -20,6 +20,7 @@ const BookConsultant = () => {
     message: ""
   });
   const { toast } = useToast();
+  const navigate = useNavigate();
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -44,15 +45,19 @@ Sent from Tiewalavakil Website
     // Open default email client
     window.location.href = mailtoLink;
     
+    // Show thank you popup
     toast({
-      title: "Email Client Opened",
-      description: "Your default email client has been opened with the consultation request. Please send the email to complete your booking.",
+      title: "Thank You!",
+      description: "Your consultation request has been sent successfully. We will contact you within 30 minutes. Redirecting to home page...",
     });
     
-    // Reset form after a short delay
+    // Reset form
+    setFormData({ name: "", email: "", phone: "", consultationType: "", message: "" });
+    
+    // Redirect to home page after 3 seconds
     setTimeout(() => {
-      setFormData({ name: "", email: "", phone: "", consultationType: "", message: "" });
-    }, 1000);
+      navigate('/');
+    }, 3000);
   };
 
   const consultationTypes = [

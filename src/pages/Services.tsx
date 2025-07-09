@@ -1,7 +1,7 @@
-
 import { Scale, Award, Users, Phone, FileText, Home, Shield, Clock, CheckCircle, Star, Heart, Building, Gavel } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
+import { Link } from "react-router-dom";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Newsletter from "@/components/Newsletter";
@@ -184,14 +184,14 @@ const Services = () => {
             Tiewalavakil provides reliable, affordable, and professional legal documentation and registration services in Hapur. We specialize in property-related deeds, family documentation, and legal advisory, all tailored to local requirements and legal standards. Our team of experienced legal professionals ensures that your documents are drafted with clarity and registered on time.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <a href="/book-consultant">
+            <Link to="/book-consultant">
               <Button size="lg" className="font-semibold px-6 md:px-8 py-3 md:py-4 w-full sm:w-auto">
                 Book Free Consultation
               </Button>
-            </a>
-            <a href="tel:7037455191">
+            </Link>
+            <a href="tel:7037455191" aria-label="Call Tiewalavakil for immediate legal assistance">
               <Button size="lg" variant="outline" className="font-semibold px-6 md:px-8 py-3 md:py-4 w-full sm:w-auto">
-                <Phone className="w-4 md:w-5 h-4 md:h-5 mr-2" />
+                <Phone className="w-4 md:w-5 h-4 md:h-5 mr-2" aria-hidden="true" />
                 Call: 7037455191
               </Button>
             </a>
@@ -209,13 +209,13 @@ const Services = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 md:gap-8">
             {mainServices.map((service) => (
               <Card key={service.id} className="p-4 md:p-6 hover:shadow-lg transition-shadow h-full flex flex-col">
-                <service.icon className="w-10 h-10 text-primary mb-4" />
+                <service.icon className="w-10 h-10 text-primary mb-4" aria-hidden="true" />
                 <h3 className="text-lg md:text-xl font-bold text-primary mb-3">{service.title}</h3>
                 <p className="text-sm md:text-base text-muted-foreground mb-4 flex-grow">{service.description}</p>
                 <ul className="space-y-2">
                   {service.details.map((detail, index) => (
                     <li key={index} className="text-sm text-muted-foreground flex items-start">
-                      <CheckCircle className="w-4 h-4 text-green-600 mr-2 mt-0.5 flex-shrink-0" />
+                      <CheckCircle className="w-4 h-4 text-green-600 mr-2 mt-0.5 flex-shrink-0" aria-hidden="true" />
                       {detail}
                     </li>
                   ))}
@@ -241,7 +241,7 @@ const Services = () => {
                 <ul className="space-y-2">
                   {service.features.map((feature, idx) => (
                     <li key={idx} className="text-sm text-muted-foreground flex items-start">
-                      <CheckCircle className="w-4 h-4 text-green-600 mr-2 mt-0.5 flex-shrink-0" />
+                      <CheckCircle className="w-4 h-4 text-green-600 mr-2 mt-0.5 flex-shrink-0" aria-hidden="true" />
                       {feature}
                     </li>
                   ))}
@@ -263,7 +263,7 @@ const Services = () => {
             {expertServices.map((service, index) => (
               <Card key={index} className="p-6 hover:shadow-lg transition-shadow">
                 <div className="flex items-center mb-4">
-                  <CheckCircle className="w-6 h-6 text-green-600 mr-3" />
+                  <CheckCircle className="w-6 h-6 text-green-600 mr-3" aria-hidden="true" />
                   <h3 className="text-xl font-bold text-primary">{service.title}</h3>
                 </div>
                 <p className="text-muted-foreground">{service.description}</p>
@@ -285,14 +285,14 @@ const Services = () => {
             Contact Advocate Ajay Shankar Sharma today for expert property legal consultation and documentation services
           </p>
           <div className="flex flex-col md:flex-row gap-4 justify-center">
-            <a href="/book-consultant">
+            <Link to="/book-consultant">
               <Button size="lg" variant="secondary" className="font-semibold px-6 md:px-8 py-3 md:py-4 w-full md:w-auto">
                 Book Consultation
               </Button>
-            </a>
-            <a href="tel:7037455191">
+            </Link>
+            <a href="tel:7037455191" aria-label="Call Tiewalavakil for immediate legal consultation">
               <Button size="lg" className="font-semibold px-6 md:px-8 py-3 md:py-4 border-white text-white bg-transparent border-2 w-full md:w-auto">
-                <Phone className="w-4 md:w-5 h-4 md:h-5 mr-2" />
+                <Phone className="w-4 md:w-5 h-4 md:h-5 mr-2" aria-hidden="true" />
                 Call Now
               </Button>
             </a>
