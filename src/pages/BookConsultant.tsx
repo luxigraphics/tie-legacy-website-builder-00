@@ -1,4 +1,5 @@
-import { Phone, MessageCircle, Calendar, Clock, Video, User, Mail, FileText, CheckCircle } from "lucide-react";
+
+import { Phone, MessageCircle, Calendar, Clock, Video, User, Mail, FileText, CheckCircle, IndianRupee } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -11,53 +12,139 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Newsletter from "@/components/Newsletter";
 
+// Declare Razorpay type
+declare global {
+  interface Window {
+    Razorpay: any;
+  }
+}
+
 const BookConsultant = () => {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     phone: "",
+    amount: "",
     consultationType: "",
     message: ""
   });
+  const [isProcessing, setIsProcessing] = useState(false);
   const { toast } = useToast();
   const navigate = useNavigate();
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    
-    // Create email content
-    const subject = `Consultation Request from ${formData.name}`;
+  const handlePayment = () => {
+    // Validate required fields
+    if (!formData.name || !formData.email || !formData.phone || !formData.amount) {
+      toast({
+        title: "Missing Information",
+        description: "Please fill in all required fields before proceeding with payment.",
+        variant: "destructive"
+      });
+      return;
+    }
+
+    if (!formData.amount || isNaN(Number(formData.amount)) || Number(formData.amount) <= 0) {
+      toast({
+        title: "Invalid Amount",
+        description: "Please enter a valid amount in ₹.",
+        variant: "destructive"
+      });
+      return;
+    }
+
+    setIsProcessing(true);
+
+    const options = {
+      key: 'nx5KNhcSn4ZNXpfuccc4cz7X', // Razorpay API key
+      amount: Number(formData.amount) * 100, // Amount in paise
+      currency: 'INR',
+      name: 'Tiewalavakil Legal Consultancy',
+      description: 'Legal Consultation Payment',
+      image: '/lovable-uploads/277f1b46-80f1-4bc3-85ff-7189eedb6bea.png',
+      handler: function (response: any) {
+        // Payment successful
+        handlePaymentSuccess(response);
+      },
+      prefill: {
+        name: formData.name,
+        email: formData.email,
+        contact: formData.phone
+      },
+      notes: {
+        consultation_type: formData.consultationType,
+        message: formData.message
+      },
+      theme: {
+        color: '#3B82F6'
+      },
+      modal: {
+        ondismiss: function() {
+          setIsProcessing(false);
+          toast({
+            title: "Payment Cancelled",
+            description: "Payment was cancelled by user.",
+            variant: "destructive"
+          });
+        }
+      }
+    };
+
+    if (window.Razorpay) {
+      const rzp = new window.Razorpay(options);
+      rzp.open();
+    } else {
+      setIsProcessing(false);
+      toast({
+        title: "Payment Gateway Error",
+        description: "Razorpay is not loaded. Please refresh the page and try again.",
+        variant: "destructive"
+      });
+    }
+  };
+
+  const handlePaymentSuccess = (paymentResponse: any) => {
+    // Create email content with payment confirmation
+    const subject = `Payment Confirmed - Consultation Request from ${formData.name}`;
     const body = `
+PAYMENT CONFIRMATION
+Payment ID: ${paymentResponse.razorpay_payment_id}
+Amount: ₹${formData.amount}
+Status: SUCCESS
+
+CONSULTATION DETAILS
 Name: ${formData.name}
 Email: ${formData.email}
 Phone: ${formData.phone}
 Consultation Type: ${formData.consultationType}
+Amount Paid: ₹${formData.amount}
 
 Message:
 ${formData.message}
 
+Payment processed via Razorpay
+Transaction ID: ${paymentResponse.razorpay_payment_id}
+
 Sent from Tiewalavakil Website
     `.trim();
 
-    // Create mailto link
+    // Send email
     const mailtoLink = `mailto:tiewalavakil@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-    
-    // Open default email client
     window.location.href = mailtoLink;
-    
-    // Show thank you popup
+
+    // Show success message
     toast({
-      title: "Thank You!",
-      description: "Your consultation request has been sent successfully. We will contact you within 30 minutes. Redirecting to home page...",
+      title: "Payment Successful!",
+      description: `Payment of ₹${formData.amount} completed successfully. Your consultation request has been sent. We will contact you within 30 minutes. Redirecting to home page...`,
     });
-    
+
     // Reset form
-    setFormData({ name: "", email: "", phone: "", consultationType: "", message: "" });
-    
-    // Redirect to home page after 3 seconds
+    setFormData({ name: "", email: "", phone: "", amount: "", consultationType: "", message: "" });
+    setIsProcessing(false);
+
+    // Redirect to home page after 4 seconds
     setTimeout(() => {
       navigate('/');
-    }, 3000);
+    }, 4000);
   };
 
   const consultationTypes = [
@@ -103,7 +190,7 @@ Sent from Tiewalavakil Website
               Book Your Legal Consultation
             </h1>
             <p className="text-lg md:text-xl lg:text-2xl text-muted-foreground mb-6 md:mb-8 leading-relaxed">
-              Get expert legal advice from Advocate Ajay Shankar Sharma. Choose your preferred consultation method and schedule your session today.
+              Get expert legal advice from Advocate Ajay Shankar Sharma. Choose your preferred consultation method and complete secure payment.
             </p>
             <div className="flex justify-center">
               <div className="w-40 h-52 md:w-48 md:h-64 rounded-xl overflow-hidden border-4 border-primary shadow-2xl">
@@ -145,16 +232,25 @@ Sent from Tiewalavakil Website
         </div>
       </section>
 
-      {/* Booking Form */}
+      {/* Booking Form with Payment */}
       <section className="py-12 md:py-16 bg-muted/30">
         <div className="container mx-auto px-4">
           <div className="max-w-2xl mx-auto">
             <Card className="border-2 border-primary/30">
               <CardContent className="p-6 md:p-8">
                 <h2 className="text-2xl md:text-3xl font-bold text-primary mb-4 md:mb-6 text-center">
-                  Book Your Consultation Now
+                  Pay & Book Your Consultation
                 </h2>
-                <form onSubmit={handleSubmit} className="space-y-4 md:space-y-6">
+                <div className="bg-blue-50 p-4 rounded-lg mb-6">
+                  <div className="flex items-center text-blue-800 mb-2">
+                    <IndianRupee className="w-5 h-5 mr-2" />
+                    <span className="font-semibold">Secure Payment with Razorpay</span>
+                  </div>
+                  <p className="text-blue-700 text-sm">
+                    Payment is processed securely. Your consultation request will be sent only after successful payment.
+                  </p>
+                </div>
+                <form onSubmit={(e) => { e.preventDefault(); handlePayment(); }} className="space-y-4 md:space-y-6">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
                     <div>
                       <Label htmlFor="name" className="text-sm md:text-base">Full Name *</Label>
@@ -166,7 +262,6 @@ Sent from Tiewalavakil Website
                         required
                         placeholder="Enter your full name"
                         className="mt-1"
-                        aria-describedby="name-help"
                       />
                     </div>
                     <div>
@@ -179,59 +274,83 @@ Sent from Tiewalavakil Website
                         required
                         placeholder="Enter your phone number"
                         className="mt-1"
-                        aria-describedby="phone-help"
                       />
                     </div>
                   </div>
                   
                   <div>
-                    <Label htmlFor="email" className="text-sm md:text-base">Email Address</Label>
+                    <Label htmlFor="email" className="text-sm md:text-base">Email Address *</Label>
                     <Input
                       id="email"
                       type="email"
                       value={formData.email}
                       onChange={(e) => setFormData({...formData, email: e.target.value})}
+                      required
                       placeholder="Enter your email address"
                       className="mt-1"
-                      aria-describedby="email-help"
                     />
                   </div>
 
-                  <div>
-                    <Label htmlFor="consultationType" className="text-sm md:text-base">Consultation Type *</Label>
-                    <select
-                      id="consultationType"
-                      value={formData.consultationType}
-                      onChange={(e) => setFormData({...formData, consultationType: e.target.value})}
-                      required
-                      className="w-full p-2 md:p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-primary focus:border-transparent mt-1 text-sm md:text-base"
-                      aria-describedby="consultation-help"
-                    >
-                      <option value="">Select consultation type</option>
-                      <option value="phone">Phone Consultation - ₹500</option>
-                      <option value="video">Video Consultation - ₹800</option>
-                      <option value="whatsapp">WhatsApp Consultation - ₹300</option>
-                      <option value="document">Document Review - ₹1500</option>
-                    </select>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
+                    <div>
+                      <Label htmlFor="consultationType" className="text-sm md:text-base">Consultation Type</Label>
+                      <select
+                        id="consultationType"
+                        value={formData.consultationType}
+                        onChange={(e) => setFormData({...formData, consultationType: e.target.value})}
+                        className="w-full p-2 md:p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-primary focus:border-transparent mt-1 text-sm md:text-base"
+                      >
+                        <option value="">Select consultation type</option>
+                        <option value="phone">Phone Consultation - ₹500</option>
+                        <option value="video">Video Consultation - ₹800</option>
+                        <option value="whatsapp">WhatsApp Consultation - ₹300</option>
+                        <option value="document">Document Review - ₹1500</option>
+                        <option value="custom">Custom Amount</option>
+                      </select>
+                    </div>
+                    <div>
+                      <Label htmlFor="amount" className="text-sm md:text-base">Amount (₹) *</Label>
+                      <Input
+                        id="amount"
+                        type="number"
+                        value={formData.amount}
+                        onChange={(e) => setFormData({...formData, amount: e.target.value})}
+                        required
+                        placeholder="Enter amount in ₹"
+                        min="1"
+                        className="mt-1"
+                      />
+                    </div>
                   </div>
 
                   <div>
-                    <Label htmlFor="message" className="text-sm md:text-base">Describe Your Legal Issue *</Label>
+                    <Label htmlFor="message" className="text-sm md:text-base">Describe Your Legal Issue</Label>
                     <Textarea
                       id="message"
                       value={formData.message}
                       onChange={(e) => setFormData({...formData, message: e.target.value})}
-                      required
                       placeholder="Please describe your legal issue in detail..."
                       rows={4}
                       className="mt-1"
-                      aria-describedby="message-help"
                     />
                   </div>
 
-                  <Button type="submit" className="w-full text-base md:text-lg font-semibold py-3 md:py-4">
-                    <Calendar className="w-4 h-4 md:w-5 md:h-5 mr-2" aria-hidden="true" />
-                    Send Consultation Request
+                  <Button 
+                    type="submit" 
+                    className="w-full text-base md:text-lg font-semibold py-3 md:py-4"
+                    disabled={isProcessing}
+                  >
+                    {isProcessing ? (
+                      <>
+                        <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
+                        Processing Payment...
+                      </>
+                    ) : (
+                      <>
+                        <IndianRupee className="w-4 h-4 md:w-5 md:h-5 mr-2" aria-hidden="true" />
+                        Pay ₹{formData.amount || '0'} & Send Request
+                      </>
+                    )}
                   </Button>
                 </form>
               </CardContent>
