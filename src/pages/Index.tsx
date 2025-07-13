@@ -16,7 +16,7 @@ const testimonials = [
     rating: 5,
   },
   {
-    name: "Neha Gupta",
+    name: "Neha Gupta", 
     feedback:
       "Professional and knowledgeable. Highly recommend for any legal consultation related to property matters.",
     rating: 5,
@@ -41,7 +41,7 @@ const videoTestimonials = [
   {
     id: 2,
     name: "Priya Sharma",
-    title: "Legal Consultation Client",
+    title: "Legal Consultation Client", 
     thumbnail: "/lovable-uploads/57a4ba6d-7415-4972-8289-a35cf3235bc0.png",
     videoUrl: "#",
     feedback: "Expert advice that saved me from a major property dispute."
@@ -468,13 +468,20 @@ const Index = () => {
               </div>
               <div className="space-y-4 xl:space-y-5">
                 <a href="tel:7037455191">
-                  <Button size="sm" className="w-full bg-primary text-primary-foreground hover:bg-primary/90 font-semibold text-xs xl:text-sm">
+                  <Button 
+                    size="sm" 
+                    className="w-full bg-gradient-to-r from-primary to-primary/80 text-primary-foreground hover:from-primary/90 hover:to-primary/70 font-semibold text-xs xl:text-sm shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 rounded-lg border border-primary/20"
+                  >
                     <Phone className="w-3 h-3 xl:w-4 xl:h-4 mr-2" />
                     Call Now
                   </Button>
                 </a>
                 <a href="https://wa.me/917037455191" target="_blank" rel="noopener noreferrer">
-                  <Button size="sm" variant="outline" className="w-full border-green-500 text-green-600 hover:bg-green-50 font-semibold text-xs xl:text-sm">
+                  <Button 
+                    size="sm" 
+                    variant="outline" 
+                    className="w-full bg-gradient-to-r from-green-50 to-green-100 border-2 border-green-500 text-green-700 hover:bg-gradient-to-r hover:from-green-100 hover:to-green-200 hover:border-green-600 font-semibold text-xs xl:text-sm shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 rounded-lg"
+                  >
                     <MessageCircle className="w-3 h-3 xl:w-4 xl:h-4 mr-2" />
                     Chat Now
                   </Button>
