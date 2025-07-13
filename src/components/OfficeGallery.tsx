@@ -50,6 +50,10 @@ const OfficeGallery = () => {
     setCurrentIndex((prevIndex) => (prevIndex - 1 + images.length) % images.length);
   };
 
+  const goToSlide = (index: number) => {
+    setCurrentIndex(index);
+  };
+
   const getVisibleImages = () => {
     const visible = [];
     for (let i = 0; i < 3; i++) {
@@ -75,11 +79,12 @@ const OfficeGallery = () => {
           {getVisibleImages().map((image, idx) => (
             <div
               key={image.index}
-              className={`relative rounded-xl overflow-hidden shadow-lg transition-all duration-300 ${
+              className={`relative rounded-xl overflow-hidden shadow-lg transition-all duration-300 cursor-pointer ${
                 idx === 1 
                   ? 'w-48 h-64 md:w-64 md:h-80 lg:w-80 lg:h-96 scale-110 z-10' 
                   : 'w-32 h-44 md:w-48 md:h-64 lg:w-56 lg:h-72 scale-90 opacity-75'
               }`}
+              onClick={() => idx !== 1 && goToSlide(image.index)}
             >
               <img 
                 src={image.src} 
