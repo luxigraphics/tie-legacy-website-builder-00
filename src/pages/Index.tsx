@@ -1,3 +1,4 @@
+
 import { Phone, MessageCircle, Scale, BookOpen, FileText, Clock, Star, ChevronDown, Award, Users, MapPin, Receipt, Gavel, Laptop, X, Play, Calendar, User } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -466,8 +467,8 @@ const Index = () => {
                 <p className="text-xs xl:text-sm text-primary font-bold mb-1 md:mb-2">🏛️ Legacy</p>
                 <p className="text-xs xl:text-sm text-muted-foreground leading-relaxed">Get immediate legal assistance. Expert advice on property matters available now.</p>
               </div>
-              <div className="space-y-4 xl:space-y-5">
-                <a href="tel:7037455191">
+              <div className="flex flex-col space-y-3 md:space-y-4">
+                <a href="tel:7037455191" className="w-full">
                   <Button 
                     size="sm" 
                     className="w-full bg-gradient-to-r from-primary to-primary/80 text-primary-foreground hover:from-primary/90 hover:to-primary/70 font-semibold text-xs xl:text-sm shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 rounded-lg border border-primary/20"
@@ -476,7 +477,7 @@ const Index = () => {
                     Call Now
                   </Button>
                 </a>
-                <a href="https://wa.me/917037455191" target="_blank" rel="noopener noreferrer">
+                <a href="https://wa.me/917037455191" target="_blank" rel="noopener noreferrer" className="w-full">
                   <Button 
                     size="sm" 
                     variant="outline" 
