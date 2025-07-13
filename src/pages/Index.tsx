@@ -1,3 +1,4 @@
+
 import { Phone, MessageCircle, Scale, BookOpen, FileText, Clock, Star, ChevronDown, Award, Users, MapPin, Receipt, Gavel, Laptop, X, Play, Calendar, User } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -334,20 +335,22 @@ const Index = () => {
           <div className="grid md:grid-cols-3 gap-6">
             {testimonials.map((testimonial, index) => (
               <Card key={index} className="shadow-xl hover:shadow-2xl transition-shadow duration-300 border-2 border-primary/10">
-                <CardContent className="p-6 md:p-8">
-                  <div className="flex justify-center mb-4">
-                    <div className="flex">
-                      {[...Array(testimonial.rating)].map((_, i) => (
-                        <Star key={i} className="w-5 h-5 text-yellow-400 fill-current" />
-                      ))}
+                <CardContent className="p-6 md:p-8 flex flex-col justify-between h-full">
+                  <div>
+                    <div className="flex justify-center mb-4">
+                      <div className="flex">
+                        {[...Array(testimonial.rating)].map((_, i) => (
+                          <Star key={i} className="w-5 h-5 text-yellow-400 fill-current" />
+                        ))}
+                      </div>
+                    </div>
+                    <div className="text-center">
+                      <p className="text-muted-foreground mb-6 text-lg leading-relaxed italic">"{testimonial.feedback}"</p>
                     </div>
                   </div>
-                  <div className="text-center">
-                    <p className="text-muted-foreground mb-6 text-lg leading-relaxed italic">"{testimonial.feedback}"</p>
-                    <div className="border-t border-primary/20 pt-4">
-                      <p className="font-bold text-primary text-lg">{testimonial.name}</p>
-                      <p className="text-sm text-muted-foreground">Satisfied Client</p>
-                    </div>
+                  <div className="border-t border-primary/20 pt-4 text-center">
+                    <p className="font-bold text-primary text-lg">{testimonial.name}</p>
+                    <p className="text-sm text-muted-foreground">Satisfied Client</p>
                   </div>
                 </CardContent>
               </Card>
@@ -464,7 +467,7 @@ const Index = () => {
                 <p className="text-xs xl:text-sm text-primary font-bold mb-1 md:mb-2">🏛️ Legacy</p>
                 <p className="text-xs xl:text-sm text-muted-foreground leading-relaxed">Get immediate legal assistance. Expert advice on property matters available now.</p>
               </div>
-              <div className="space-y-2 xl:space-y-3">
+              <div className="space-y-3 xl:space-y-4">
                 <a href="tel:7037455191">
                   <Button size="sm" className="w-full bg-primary text-primary-foreground hover:bg-primary/90 font-semibold text-xs xl:text-sm">
                     <Phone className="w-3 h-3 xl:w-4 xl:h-4 mr-2" />

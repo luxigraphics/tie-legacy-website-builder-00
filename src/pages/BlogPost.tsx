@@ -49,10 +49,10 @@ const BlogPost = () => {
       {/* Blog Content */}
       <section className="py-8 md:py-12 bg-background">
         <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto">
-            <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
+          <div className="max-w-6xl mx-auto">
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
               {/* Main Content */}
-              <div className="lg:col-span-3">
+              <div className="lg:col-span-2">
                 <article className="prose prose-lg max-w-none">
                   <img 
                     src="/lovable-uploads/315b4579-da29-4b6d-931b-adccdbf5ccee.png" 
@@ -188,32 +188,32 @@ const BlogPost = () => {
                 </div>
               </div>
 
-              {/* Sidebar */}
+              {/* Sidebar - Made wider */}
               <div className="lg:col-span-1">
                 <div className="sticky top-4 space-y-6">
                   {/* Author Info */}
-                  <div className="bg-white rounded-lg p-4 md:p-6 shadow-lg border">
+                  <div className="bg-white rounded-lg p-6 md:p-8 shadow-lg border">
                     <div className="text-center">
                       <img 
                         src="/lovable-uploads/7fcb1cb6-ab59-4fd4-ac3a-873cde116cc8.png" 
                         alt="Advocate Ajay Shankar Sharma" 
-                        className="w-20 h-20 md:w-24 md:h-24 rounded-full mx-auto mb-3 md:mb-4 border-4 border-primary shadow-lg"
+                        className="w-28 h-28 md:w-32 md:h-32 rounded-full mx-auto mb-4 md:mb-6 border-4 border-primary shadow-lg"
                       />
-                      <h3 className="font-bold text-primary text-base md:text-lg">Advocate Ajay Shankar Sharma</h3>
-                      <p className="text-sm md:text-base text-muted-foreground mb-3 md:mb-4">33+ Years Legal Experience</p>
-                      <p className="text-xs md:text-sm text-muted-foreground mb-4 md:mb-6">
+                      <h3 className="font-bold text-primary text-lg md:text-xl mb-2">Advocate Ajay Shankar Sharma</h3>
+                      <p className="text-base md:text-lg text-muted-foreground mb-4 md:mb-6">33+ Years Legal Experience</p>
+                      <p className="text-sm md:text-base text-muted-foreground mb-6 md:mb-8">
                         Expert in Property Law, Documentation, and Legal Consultation
                       </p>
-                      <div className="space-y-2 md:space-y-3">
+                      <div className="space-y-3 md:space-y-4">
                         <a href="tel:7037455191">
-                          <Button size="sm" className="w-full">
-                            <Phone className="w-3 h-3 md:w-4 md:h-4 mr-2" />
+                          <Button size="lg" className="w-full">
+                            <Phone className="w-4 h-4 md:w-5 md:h-5 mr-2" />
                             Call Now
                           </Button>
                         </a>
                         <a href="https://wa.me/917037455191" target="_blank" rel="noopener noreferrer">
-                          <Button size="sm" variant="outline" className="w-full">
-                            <MessageCircle className="w-3 h-3 md:w-4 md:h-4 mr-2" />
+                          <Button size="lg" variant="outline" className="w-full">
+                            <MessageCircle className="w-4 h-4 md:w-5 md:h-5 mr-2" />
                             WhatsApp
                           </Button>
                         </a>
@@ -222,13 +222,13 @@ const BlogPost = () => {
                   </div>
 
                   {/* Quick Contact */}
-                  <div className="bg-primary/5 rounded-lg p-4 md:p-6 border border-primary/20">
-                    <h3 className="font-bold text-primary mb-3 md:mb-4 text-base md:text-lg">Need Legal Help?</h3>
-                    <p className="text-sm md:text-base text-muted-foreground mb-3 md:mb-4">
+                  <div className="bg-primary/5 rounded-lg p-6 md:p-8 border border-primary/20">
+                    <h3 className="font-bold text-primary mb-4 md:mb-6 text-lg md:text-xl">Need Legal Help?</h3>
+                    <p className="text-base md:text-lg text-muted-foreground mb-4 md:mb-6">
                       Get expert advice on property matters and legal documentation.
                     </p>
                     <a href="/book-consultant">
-                      <Button className="w-full font-semibold" size="sm">
+                      <Button className="w-full font-semibold" size="lg">
                         Book Consultation
                       </Button>
                     </a>
