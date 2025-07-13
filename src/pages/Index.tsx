@@ -1,4 +1,3 @@
-
 import { Phone, MessageCircle, Scale, BookOpen, FileText, Clock, Star, ChevronDown, Award, Users, MapPin, Receipt, Gavel, Laptop, X, Play, Calendar, User } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -467,7 +466,7 @@ const Index = () => {
                 <p className="text-xs xl:text-sm text-primary font-bold mb-1 md:mb-2">🏛️ Legacy</p>
                 <p className="text-xs xl:text-sm text-muted-foreground leading-relaxed">Get immediate legal assistance. Expert advice on property matters available now.</p>
               </div>
-              <div className="space-y-3 xl:space-y-4">
+              <div className="space-y-4 xl:space-y-5">
                 <a href="tel:7037455191">
                   <Button size="sm" className="w-full bg-primary text-primary-foreground hover:bg-primary/90 font-semibold text-xs xl:text-sm">
                     <Phone className="w-3 h-3 xl:w-4 xl:h-4 mr-2" />
