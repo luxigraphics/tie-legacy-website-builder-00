@@ -1,9 +1,43 @@
-
 import { Button } from "@/components/ui/button";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const Newsletter = () => {
   const [email, setEmail] = useState("");
+  const [showThankYou, setShowThankYou] = useState(false);
+
+  useEffect(() => {
+    // Check if user was redirected back after successful subscription
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get('subscribed') === 'true') {
+      setShowThankYou(true);
+      // Remove the parameter from URL
+      window.history.replaceState({}, document.title, window.location.pathname);
+    }
+  }, []);
+
+  if (showThankYou) {
+    return (
+      <section className="py-12 md:py-16 bg-muted/30">
+        <div className="container mx-auto px-4 text-center">
+          <div className="max-w-2xl mx-auto bg-green-50 border border-green-200 rounded-lg p-8">
+            <div className="text-green-600 text-6xl mb-4">✓</div>
+            <h2 className="text-3xl md:text-4xl font-bold text-green-800 mb-4">
+              Thank You for Subscribing!
+            </h2>
+            <p className="text-lg text-green-700 mb-6">
+              आपका subscription successful हो गया है। आपको जल्द ही legal insights और updates मिलना शुरू हो जाएंगे।
+            </p>
+            <Button 
+              onClick={() => setShowThankYou(false)}
+              className="bg-green-600 hover:bg-green-700"
+            >
+              Continue Reading
+            </Button>
+          </div>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section className="py-12 md:py-16 bg-muted/30">

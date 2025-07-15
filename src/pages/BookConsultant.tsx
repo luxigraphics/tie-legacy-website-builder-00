@@ -1,11 +1,10 @@
-
 import { Phone, MessageCircle, Calendar, Clock, Video, User, Mail, FileText, CheckCircle, IndianRupee } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useToast } from "@/hooks/use-toast";
 import { useNavigate } from "react-router-dom";
 import Header from "@/components/Header";
@@ -29,8 +28,19 @@ const BookConsultant = () => {
     message: ""
   });
   const [isProcessing, setIsProcessing] = useState(false);
+  const [showThankYou, setShowThankYou] = useState(false);
   const { toast } = useToast();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    // Check if user was redirected back after successful booking
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get('booking') === 'success') {
+      setShowThankYou(true);
+      // Remove the parameter from URL
+      window.history.replaceState({}, document.title, window.location.pathname);
+    }
+  }, []);
 
   const handlePayment = () => {
     // Validate required fields
@@ -149,6 +159,53 @@ const BookConsultant = () => {
       price: "₹1500"
     }
   ];
+
+  // Show thank you message if booking was successful
+  if (showThankYou) {
+    return (
+      <div className="min-h-screen bg-background">
+        <Header />
+        <section className="py-20 bg-gradient-to-r from-green-50 to-green-100 min-h-screen flex items-center">
+          <div className="container mx-auto px-4">
+            <div className="max-w-2xl mx-auto text-center bg-white rounded-lg shadow-2xl p-12">
+              <div className="text-green-600 text-8xl mb-6">✓</div>
+              <h1 className="text-4xl md:text-5xl font-bold text-green-800 mb-6">
+                Thank You!
+              </h1>
+              <h2 className="text-2xl font-semibold text-green-700 mb-4">
+                आपका Consultation Request Submit हो गया है!
+              </h2>
+              <p className="text-lg text-green-600 mb-6 leading-relaxed">
+                हमारी team आपको <strong>30 मिनट के अंदर</strong> contact करेगी। 
+                आपकी legal problem का solution जल्द ही मिलेगा।
+              </p>
+              <div className="bg-green-50 border border-green-200 rounded-lg p-4 mb-8">
+                <p className="text-green-800 font-medium">
+                  📞 अगर urgent है तो direct call करें: <strong>7037455191</strong>
+                </p>
+              </div>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <Button 
+                  onClick={() => navigate('/')}
+                  className="bg-green-600 hover:bg-green-700 px-8 py-3"
+                >
+                  Go to Homepage
+                </Button>
+                <Button 
+                  onClick={() => setShowThankYou(false)}
+                  variant="outline"
+                  className="border-green-600 text-green-600 hover:bg-green-50 px-8 py-3"
+                >
+                  Book Another Consultation
+                </Button>
+              </div>
+            </div>
+          </div>
+        </section>
+        <Footer />
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-background">
