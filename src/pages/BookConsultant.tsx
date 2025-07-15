@@ -1,4 +1,3 @@
-
 import { Phone, MessageCircle, Calendar, Clock, Video, User, Mail, FileText, CheckCircle, IndianRupee } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -55,7 +54,7 @@ const BookConsultant = () => {
     setIsProcessing(true);
 
     const options = {
-      key: 'nx5KNhcSn4ZNXpfuccc4cz7X', // Razorpay API key
+      key: 'rzp_test_nx5KNhcSn4ZNXpfuccc4cz7X', // Razorpay API key
       amount: Number(formData.amount) * 100, // Amount in paise
       currency: 'INR',
       name: 'Tiewalavakil Legal Consultancy',
@@ -103,34 +102,6 @@ const BookConsultant = () => {
   };
 
   const handlePaymentSuccess = (paymentResponse: any) => {
-    // Create email content with payment confirmation
-    const subject = `Payment Confirmed - Consultation Request from ${formData.name}`;
-    const body = `
-PAYMENT CONFIRMATION
-Payment ID: ${paymentResponse.razorpay_payment_id}
-Amount: ₹${formData.amount}
-Status: SUCCESS
-
-CONSULTATION DETAILS
-Name: ${formData.name}
-Email: ${formData.email}
-Phone: ${formData.phone}
-Consultation Type: ${formData.consultationType}
-Amount Paid: ₹${formData.amount}
-
-Message:
-${formData.message}
-
-Payment processed via Razorpay
-Transaction ID: ${paymentResponse.razorpay_payment_id}
-
-Sent from Tiewalavakil Website
-    `.trim();
-
-    // Send email
-    const mailtoLink = `mailto:tiewalavakil@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-    window.location.href = mailtoLink;
-
     // Show success message
     toast({
       title: "Payment Successful!",
@@ -232,33 +203,40 @@ Sent from Tiewalavakil Website
         </div>
       </section>
 
-      {/* Booking Form with Payment */}
+      {/* Booking Form with FormSubmit */}
       <section className="py-12 md:py-16 bg-muted/30">
         <div className="container mx-auto px-4">
           <div className="max-w-2xl mx-auto">
             <Card className="border-2 border-primary/30">
               <CardContent className="p-6 md:p-8">
                 <h2 className="text-2xl md:text-3xl font-bold text-primary mb-4 md:mb-6 text-center">
-                  Pay & Book Your Consultation
+                  Book Your Consultation
                 </h2>
                 <div className="bg-blue-50 p-4 rounded-lg mb-6">
                   <div className="flex items-center text-blue-800 mb-2">
-                    <IndianRupee className="w-5 h-5 mr-2" />
-                    <span className="font-semibold">Secure Payment with Razorpay</span>
+                    <Mail className="w-5 h-5 mr-2" />
+                    <span className="font-semibold">Direct Email Submission</span>
                   </div>
                   <p className="text-blue-700 text-sm">
-                    Payment is processed securely. Your consultation request will be sent only after successful payment.
+                    Your consultation request will be sent directly to our email. We'll contact you within 30 minutes.
                   </p>
                 </div>
-                <form onSubmit={(e) => { e.preventDefault(); handlePayment(); }} className="space-y-4 md:space-y-6">
+                <form 
+                  action="https://formsubmit.co/tiewalavakil@gmail.com" 
+                  method="POST" 
+                  className="space-y-4 md:space-y-6"
+                >
+                  <input type="hidden" name="_subject" value="New Consultation Booking - Tiewalavakil" />
+                  <input type="hidden" name="_captcha" value="false" />
+                  <input type="hidden" name="_next" value={`${window.location.origin}?booking=success`} />
+                  
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
                     <div>
                       <Label htmlFor="name" className="text-sm md:text-base">Full Name *</Label>
                       <Input
                         id="name"
+                        name="name"
                         type="text"
-                        value={formData.name}
-                        onChange={(e) => setFormData({...formData, name: e.target.value})}
                         required
                         placeholder="Enter your full name"
                         className="mt-1"
@@ -268,9 +246,8 @@ Sent from Tiewalavakil Website
                       <Label htmlFor="phone" className="text-sm md:text-base">Phone Number *</Label>
                       <Input
                         id="phone"
+                        name="phone"
                         type="tel"
-                        value={formData.phone}
-                        onChange={(e) => setFormData({...formData, phone: e.target.value})}
                         required
                         placeholder="Enter your phone number"
                         className="mt-1"
@@ -282,9 +259,8 @@ Sent from Tiewalavakil Website
                     <Label htmlFor="email" className="text-sm md:text-base">Email Address *</Label>
                     <Input
                       id="email"
+                      name="email"
                       type="email"
-                      value={formData.email}
-                      onChange={(e) => setFormData({...formData, email: e.target.value})}
                       required
                       placeholder="Enter your email address"
                       className="mt-1"
@@ -296,8 +272,7 @@ Sent from Tiewalavakil Website
                       <Label htmlFor="consultationType" className="text-sm md:text-base">Consultation Type</Label>
                       <select
                         id="consultationType"
-                        value={formData.consultationType}
-                        onChange={(e) => setFormData({...formData, consultationType: e.target.value})}
+                        name="consultationType"
                         className="w-full p-2 md:p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-primary focus:border-transparent mt-1 text-sm md:text-base"
                       >
                         <option value="">Select consultation type</option>
@@ -309,13 +284,11 @@ Sent from Tiewalavakil Website
                       </select>
                     </div>
                     <div>
-                      <Label htmlFor="amount" className="text-sm md:text-base">Amount (₹) *</Label>
+                      <Label htmlFor="amount" className="text-sm md:text-base">Preferred Amount (₹)</Label>
                       <Input
                         id="amount"
+                        name="amount"
                         type="number"
-                        value={formData.amount}
-                        onChange={(e) => setFormData({...formData, amount: e.target.value})}
-                        required
                         placeholder="Enter amount in ₹"
                         min="1"
                         className="mt-1"
@@ -327,8 +300,7 @@ Sent from Tiewalavakil Website
                     <Label htmlFor="message" className="text-sm md:text-base">Describe Your Legal Issue</Label>
                     <Textarea
                       id="message"
-                      value={formData.message}
-                      onChange={(e) => setFormData({...formData, message: e.target.value})}
+                      name="message"
                       placeholder="Please describe your legal issue in detail..."
                       rows={4}
                       className="mt-1"
@@ -338,19 +310,9 @@ Sent from Tiewalavakil Website
                   <Button 
                     type="submit" 
                     className="w-full text-base md:text-lg font-semibold py-3 md:py-4"
-                    disabled={isProcessing}
                   >
-                    {isProcessing ? (
-                      <>
-                        <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
-                        Processing Payment...
-                      </>
-                    ) : (
-                      <>
-                        <IndianRupee className="w-4 h-4 md:w-5 md:h-5 mr-2" aria-hidden="true" />
-                        Pay ₹{formData.amount || '0'} & Send Request
-                      </>
-                    )}
+                    <Mail className="w-4 h-4 md:w-5 md:h-5 mr-2" aria-hidden="true" />
+                    Send Consultation Request
                   </Button>
                 </form>
               </CardContent>
