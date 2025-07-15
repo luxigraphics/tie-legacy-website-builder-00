@@ -15,7 +15,7 @@ const Newsletter = () => {
           Get the latest updates on property law, legal procedures, and expert advice delivered to your inbox
         </p>
         <form 
-          action="https://formsubmit.co/tiewalavakil@gmail.com" 
+          action="https://formsubmit.co/a46a17efda441142f34035275ea6230e" 
           method="POST"
           className="flex flex-col sm:flex-row gap-4 justify-center items-stretch max-w-lg mx-auto"
         >
