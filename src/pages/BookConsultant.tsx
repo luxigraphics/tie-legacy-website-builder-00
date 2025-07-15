@@ -4,19 +4,11 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useToast } from "@/hooks/use-toast";
-import { useNavigate } from "react-router-dom";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Newsletter from "@/components/Newsletter";
-
-// Declare Razorpay type
-declare global {
-  interface Window {
-    Razorpay: any;
-  }
-}
 
 const BookConsultant = () => {
   const [formData, setFormData] = useState({
@@ -27,106 +19,75 @@ const BookConsultant = () => {
     consultationType: "",
     message: ""
   });
-  const [isProcessing, setIsProcessing] = useState(false);
-  const [showThankYou, setShowThankYou] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const { toast } = useToast();
-  const navigate = useNavigate();
 
-  useEffect(() => {
-    // Check if user was redirected back after successful booking
-    const urlParams = new URLSearchParams(window.location.search);
-    if (urlParams.get('booking') === 'success') {
-      setShowThankYou(true);
-      // Remove the parameter from URL
-      window.history.replaceState({}, document.title, window.location.pathname);
-    }
-  }, []);
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
 
-  const handlePayment = () => {
     // Validate required fields
-    if (!formData.name || !formData.email || !formData.phone || !formData.amount) {
+    if (!formData.name || !formData.email || !formData.phone) {
       toast({
         title: "Missing Information",
-        description: "Please fill in all required fields before proceeding with payment.",
+        description: "Please fill in all required fields.",
         variant: "destructive"
       });
+      setIsSubmitting(false);
       return;
     }
 
-    if (!formData.amount || isNaN(Number(formData.amount)) || Number(formData.amount) <= 0) {
-      toast({
-        title: "Invalid Amount",
-        description: "Please enter a valid amount in ₹.",
-        variant: "destructive"
+    // Create form data for FormSubmit
+    const submitData = new FormData();
+    submitData.append('name', formData.name);
+    submitData.append('email', formData.email);
+    submitData.append('phone', formData.phone);
+    submitData.append('amount', formData.amount);
+    submitData.append('consultationType', formData.consultationType);
+    submitData.append('message', formData.message);
+    submitData.append('_subject', 'New Consultation Booking - Tiewalavakil');
+    submitData.append('_captcha', 'false');
+
+    try {
+      await fetch('https://formsubmit.co/a46a17efda441142f34035275ea6230e', {
+        method: 'POST',
+        body: submitData
       });
-      return;
-    }
 
-    setIsProcessing(true);
-
-    const options = {
-      key: 'rzp_test_nx5KNhcSn4ZNXpfuccc4cz7X', // Razorpay API key
-      amount: Number(formData.amount) * 100, // Amount in paise
-      currency: 'INR',
-      name: 'Tiewalavakil Legal Consultancy',
-      description: 'Legal Consultation Payment',
-      image: '/lovable-uploads/277f1b46-80f1-4bc3-85ff-7189eedb6bea.png',
-      handler: function (response: any) {
-        // Payment successful
-        handlePaymentSuccess(response);
-      },
-      prefill: {
-        name: formData.name,
-        email: formData.email,
-        contact: formData.phone
-      },
-      notes: {
-        consultation_type: formData.consultationType,
-        message: formData.message
-      },
-      theme: {
-        color: '#3B82F6'
-      },
-      modal: {
-        ondismiss: function() {
-          setIsProcessing(false);
-          toast({
-            title: "Payment Cancelled",
-            description: "Payment was cancelled by user.",
-            variant: "destructive"
-          });
-        }
-      }
-    };
-
-    if (window.Razorpay) {
-      const rzp = new window.Razorpay(options);
-      rzp.open();
-    } else {
-      setIsProcessing(false);
+      // Show success toast
       toast({
-        title: "Payment Gateway Error",
-        description: "Razorpay is not loaded. Please refresh the page and try again.",
-        variant: "destructive"
+        title: "Thank You!",
+        description: "आपका Consultation Request Submit हो गया है! हमारी team आपको 30 मिनट के अंदर contact करेगी। Urgent के लिए: 7037455191",
+        duration: 8000,
+      });
+
+      // Reset form
+      setFormData({
+        name: "",
+        email: "",
+        phone: "",
+        amount: "",
+        consultationType: "",
+        message: ""
+      });
+    } catch (error) {
+      toast({
+        title: "Submission Failed",
+        description: "कुछ गलत हुआ है। कृपया दोबारा कोशिश करें या direct call करें: 7037455191",
+        variant: "destructive",
+        duration: 5000,
       });
     }
+
+    setIsSubmitting(false);
   };
 
-  const handlePaymentSuccess = (paymentResponse: any) => {
-    // Show success message
-    toast({
-      title: "Payment Successful!",
-      description: `Payment of ₹${formData.amount} completed successfully. Your consultation request has been sent. We will contact you within 30 minutes. Redirecting to home page...`,
-    });
-
-    // Reset form
-    setFormData({ name: "", email: "", phone: "", amount: "", consultationType: "", message: "" });
-    setIsProcessing(false);
-
-    // Redirect to home page after 4 seconds
-    setTimeout(() => {
-      navigate('/');
-    }, 4000);
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
   };
 
   const consultationTypes = [
@@ -159,53 +120,6 @@ const BookConsultant = () => {
       price: "₹1500"
     }
   ];
-
-  // Show thank you message if booking was successful
-  if (showThankYou) {
-    return (
-      <div className="min-h-screen bg-background">
-        <Header />
-        <section className="py-20 bg-gradient-to-r from-green-50 to-green-100 min-h-screen flex items-center">
-          <div className="container mx-auto px-4">
-            <div className="max-w-2xl mx-auto text-center bg-white rounded-lg shadow-2xl p-12">
-              <div className="text-green-600 text-8xl mb-6">✓</div>
-              <h1 className="text-4xl md:text-5xl font-bold text-green-800 mb-6">
-                Thank You!
-              </h1>
-              <h2 className="text-2xl font-semibold text-green-700 mb-4">
-                आपका Consultation Request Submit हो गया है!
-              </h2>
-              <p className="text-lg text-green-600 mb-6 leading-relaxed">
-                हमारी team आपको <strong>30 मिनट के अंदर</strong> contact करेगी। 
-                आपकी legal problem का solution जल्द ही मिलेगा।
-              </p>
-              <div className="bg-green-50 border border-green-200 rounded-lg p-4 mb-8">
-                <p className="text-green-800 font-medium">
-                  📞 अगर urgent है तो direct call करें: <strong>7037455191</strong>
-                </p>
-              </div>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Button 
-                  onClick={() => navigate('/')}
-                  className="bg-green-600 hover:bg-green-700 px-8 py-3"
-                >
-                  Go to Homepage
-                </Button>
-                <Button 
-                  onClick={() => setShowThankYou(false)}
-                  variant="outline"
-                  className="border-green-600 text-green-600 hover:bg-green-50 px-8 py-3"
-                >
-                  Book Another Consultation
-                </Button>
-              </div>
-            </div>
-          </div>
-        </section>
-        <Footer />
-      </div>
-    );
-  }
 
   return (
     <div className="min-h-screen bg-background">
@@ -261,7 +175,7 @@ const BookConsultant = () => {
         </div>
       </section>
 
-      {/* Booking Form with FormSubmit */}
+      {/* Booking Form */}
       <section className="py-12 md:py-16 bg-muted/30">
         <div className="container mx-auto px-4">
           <div className="max-w-2xl mx-auto">
@@ -279,15 +193,7 @@ const BookConsultant = () => {
                     Your consultation request will be sent directly to our email. We'll contact you within 30 minutes.
                   </p>
                 </div>
-                <form 
-                  action="https://formsubmit.co/a46a17efda441142f34035275ea6230e" 
-                  method="POST" 
-                  className="space-y-4 md:space-y-6"
-                >
-                  <input type="hidden" name="_subject" value="New Consultation Booking - Tiewalavakil" />
-                  <input type="hidden" name="_captcha" value="false" />
-                  <input type="hidden" name="_next" value={`${window.location.origin}?booking=success`} />
-                  
+                <form onSubmit={handleSubmit} className="space-y-4 md:space-y-6">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
                     <div>
                       <Label htmlFor="name" className="text-sm md:text-base">Full Name *</Label>
@@ -298,6 +204,8 @@ const BookConsultant = () => {
                         required
                         placeholder="Enter your full name"
                         className="mt-1"
+                        value={formData.name}
+                        onChange={handleInputChange}
                       />
                     </div>
                     <div>
@@ -309,6 +217,8 @@ const BookConsultant = () => {
                         required
                         placeholder="Enter your phone number"
                         className="mt-1"
+                        value={formData.phone}
+                        onChange={handleInputChange}
                       />
                     </div>
                   </div>
@@ -322,6 +232,8 @@ const BookConsultant = () => {
                       required
                       placeholder="Enter your email address"
                       className="mt-1"
+                      value={formData.email}
+                      onChange={handleInputChange}
                     />
                   </div>
 
@@ -332,6 +244,8 @@ const BookConsultant = () => {
                         id="consultationType"
                         name="consultationType"
                         className="w-full p-2 md:p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-primary focus:border-transparent mt-1 text-sm md:text-base"
+                        value={formData.consultationType}
+                        onChange={handleInputChange}
                       >
                         <option value="">Select consultation type</option>
                         <option value="phone">Phone Consultation - ₹500</option>
@@ -350,6 +264,8 @@ const BookConsultant = () => {
                         placeholder="Enter amount in ₹"
                         min="1"
                         className="mt-1"
+                        value={formData.amount}
+                        onChange={handleInputChange}
                       />
                     </div>
                   </div>
@@ -362,15 +278,18 @@ const BookConsultant = () => {
                       placeholder="Please describe your legal issue in detail..."
                       rows={4}
                       className="mt-1"
+                      value={formData.message}
+                      onChange={handleInputChange}
                     />
                   </div>
 
                   <Button 
                     type="submit" 
                     className="w-full text-base md:text-lg font-semibold py-3 md:py-4"
+                    disabled={isSubmitting}
                   >
                     <Mail className="w-4 h-4 md:w-5 md:h-5 mr-2" aria-hidden="true" />
-                    Send Consultation Request
+                    {isSubmitting ? "Sending..." : "Send Consultation Request"}
                   </Button>
                 </form>
               </CardContent>
