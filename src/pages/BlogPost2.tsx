@@ -55,7 +55,7 @@ const BlogPost2 = () => {
               <div className="lg:col-span-2">
                 <article className="prose prose-lg max-w-none">
                   <img 
-                    src="/lovable-uploads/66396184-1e67-4743-938c-cd5ecac431d9.png" 
+                    src="/lovable-uploads/7fcb1cb6-ab59-4fd4-ac3a-873cde116cc8.png" 
                     alt="Trusted Property Legal Services in Hapur"
                     className="w-full h-64 md:h-80 object-cover rounded-xl shadow-lg mb-6 md:mb-8"
                   />
@@ -355,6 +355,31 @@ const BlogPost2 = () => {
       </section>
 
       <Newsletter />
+
+      {/* Contact CTA with improved spacing and contact buttons */}
+      <section className="py-6 md:py-8 lg:py-12 xl:py-16 bg-primary text-primary-foreground">
+        <div className="container mx-auto px-4 text-center">
+          <h2 className="text-xl md:text-2xl lg:text-3xl xl:text-4xl font-bold mb-3 md:mb-4 lg:mb-6">
+            Need Legal Consultation?
+          </h2>
+          <p className="text-sm md:text-base lg:text-lg mb-4 md:mb-6 lg:mb-8 max-w-2xl mx-auto">
+            Have questions about property law or need expert legal advice? Contact us today.
+          </p>
+          <div className="flex flex-col md:flex-row gap-4 md:gap-6 justify-center">
+            <a href="/contact-us">
+              <Button size="lg" variant="secondary" className="font-semibold px-4 md:px-6 lg:px-8 py-2 md:py-3 lg:py-4 w-full md:w-auto text-sm md:text-base">
+                Contact Us
+              </Button>
+            </a>
+            <a href="https://wa.me/917037455191" target="_blank" rel="noopener noreferrer">
+              <Button size="lg" className="font-semibold px-4 md:px-6 lg:px-8 py-2 md:py-3 lg:py-4 border-white text-white bg-transparent border-2 w-full md:w-auto text-sm md:text-base">
+                Chat Now
+              </Button>
+            </a>
+          </div>
+        </div>
+      </section>
+
       <Footer />
     </div>
   );
