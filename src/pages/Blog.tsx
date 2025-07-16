@@ -95,7 +95,7 @@ const Blog = () => {
                       </div>
                     </div>
                     
-                    <a href={blog.id === 1 ? "/blog/sale-deed-crucial-legal-document" : "#"}>
+                    <a href={blog.id === 1 ? "/blogs/sale-deed-crucial-legal-document" : "#"}>
                       <Button className="w-full font-semibold group text-sm md:text-base">
                         Read Full Article
                         <ArrowRight className="w-3 h-3 md:w-4 md:h-4 ml-2 group-hover:translate-x-1 transition-transform" />
@@ -111,7 +111,7 @@ const Blog = () => {
 
       <Newsletter />
 
-      {/* Contact CTA */}
+      {/* Contact CTA with improved spacing */}
       <section className="py-6 md:py-8 lg:py-12 xl:py-16 bg-primary text-primary-foreground">
         <div className="container mx-auto px-4 text-center">
           <h2 className="text-xl md:text-2xl lg:text-3xl xl:text-4xl font-bold mb-3 md:mb-4 lg:mb-6">
@@ -120,8 +120,8 @@ const Blog = () => {
           <p className="text-sm md:text-base lg:text-lg mb-4 md:mb-6 lg:mb-8 max-w-2xl mx-auto">
             Have questions about property law or need expert legal advice? Contact us today.
           </p>
-          <div className="flex flex-col md:flex-row gap-3 md:gap-4 justify-center">
-            <a href="/contact">
+          <div className="flex flex-col md:flex-row gap-6 md:gap-8 justify-center">
+            <a href="/contact-us">
               <Button size="lg" variant="secondary" className="font-semibold px-4 md:px-6 lg:px-8 py-2 md:py-3 lg:py-4 w-full md:w-auto text-sm md:text-base">
                 Contact Us
               </Button>

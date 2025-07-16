@@ -40,12 +40,12 @@ const App = () => (
         <ScrollToTop />
         <Routes>
           <Route path="/" element={<Index />} />
-          <Route path="/about" element={<About />} />
+          <Route path="/about-us" element={<About />} />
           <Route path="/services" element={<Services />} />
           <Route path="/book-consultant" element={<BookConsultant />} />
-          <Route path="/contact" element={<Contact />} />
-          <Route path="/blog" element={<Blog />} />
-          <Route path="/blog/sale-deed-crucial-legal-document" element={<BlogPost />} />
+          <Route path="/contact-us" element={<Contact />} />
+          <Route path="/blogs" element={<Blog />} />
+          <Route path="/blogs/sale-deed-crucial-legal-document" element={<BlogPost />} />
           <Route path="/privacy" element={<Privacy />} />
           <Route path="/terms" element={<Terms />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}

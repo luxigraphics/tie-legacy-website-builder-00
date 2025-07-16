@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import OfficeGallery from "@/components/OfficeGallery";
 
 const About = () => {
   return (
@@ -58,82 +59,116 @@ const About = () => {
         </div>
       </section>
 
-      {/* Legacy Timeline with Enhanced Design */}
-      <section className="py-8 md:py-12 lg:py-16 bg-gradient-to-b from-amber-50 to-blue-50">
+      {/* Legacy Timeline - Updated with home page style */}
+      <section className="py-12 md:py-16 lg:py-20 bg-gradient-to-b from-blue-50 to-white">
         <div className="container mx-auto px-4">
-          <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-center text-primary mb-8 md:mb-12">
-            Our Legal Heritage Timeline
-          </h2>
-          
-          <div className="relative">
-            {/* Timeline Line */}
-            <div className="absolute left-1/2 transform -translate-x-1/2 w-1 h-full bg-primary/20 hidden md:block"></div>
-            
-            <div className="space-y-8 md:space-y-12">
-              {/* First Generation */}
-              <div className="flex flex-col md:flex-row items-center relative">
-                <div className="md:w-1/2 md:pr-8 text-center md:text-right mb-4 md:mb-0">
-                  <div className="bg-white p-6 rounded-xl shadow-lg border-l-4 border-red-700">
-                    <h3 className="text-xl md:text-2xl font-bold text-primary mb-2">Late Shri Nagendra Dutt Sharma</h3>
-                    <p className="text-lg text-red-700 font-semibold mb-2">License No. 1 Holder</p>
-                    <p className="text-muted-foreground">Founded our legal heritage, establishing the foundation of trust and expertise that continues today.</p>
-                  </div>
-                </div>
-                <div className="md:absolute md:left-1/2 md:transform md:-translate-x-1/2">
-                  <div className="w-20 h-28 md:w-24 md:h-32 rounded-lg overflow-hidden border-4 border-red-700 shadow-xl bg-white">
-                    <img 
-                      src="/lovable-uploads/07000678-35ac-4da5-95ff-0e13b8936274.png" 
-                      alt="Late Shri Nagendra Dutt Sharma" 
-                      className="w-full h-full object-cover object-top"
-                    />
-                  </div>
-                </div>
-                <div className="md:w-1/2 md:pl-8"></div>
-              </div>
+          <div className="text-center mb-8 md:mb-12 lg:mb-16">
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-primary mb-4 md:mb-6">
+              Our Legal Heritage
+            </h2>
+            <p className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto">
+              Three generations of legal excellence, serving the community with dedication and expertise
+            </p>
+          </div>
 
-              {/* Second Generation */}
-              <div className="flex flex-col md:flex-row items-center relative">
-                <div className="md:w-1/2 md:pr-8"></div>
-                <div className="md:absolute md:left-1/2 md:transform md:-translate-x-1/2">
-                  <div className="w-20 h-28 md:w-24 md:h-32 rounded-lg overflow-hidden border-4 border-red-700 shadow-xl bg-white">
-                    <img 
-                      src="/lovable-uploads/4d373dc0-a905-4b85-aa59-a2dde192f61f.png" 
-                      alt="Late Shri Narottam Dutt Sharma" 
-                      className="w-full h-full object-cover object-center scale-110"
-                    />
-                  </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12 max-w-6xl mx-auto">
+            {/* First Generation */}
+            <div className="text-center group">
+              <div className="relative mb-6 md:mb-8">
+                <div className="w-32 h-40 md:w-40 md:h-48 lg:w-48 lg:h-56 mx-auto rounded-2xl overflow-hidden border-4 border-red-700 shadow-2xl bg-white transform group-hover:scale-105 transition-all duration-300">
+                  <img 
+                    src="/lovable-uploads/07000678-35ac-4da5-95ff-0e13b8936274.png" 
+                    alt="Late Shri Nagendra Dutt Sharma" 
+                    className="w-full h-full object-cover object-top"
+                  />
                 </div>
-                <div className="md:w-1/2 md:pl-8 text-center md:text-left mt-4 md:mt-0">
-                  <div className="bg-white p-6 rounded-xl shadow-lg border-r-4 border-red-700">
-                    <h3 className="text-xl md:text-2xl font-bold text-primary mb-2">Late Shri Narottam Dutt Sharma</h3>
-                    <p className="text-lg text-red-700 font-semibold mb-2">Second Generation</p>
-                    <p className="text-muted-foreground">Continued the family tradition of legal excellence, expanding our expertise in property law and client service.</p>
-                  </div>
+                <div className="absolute -top-2 -right-2 w-8 h-8 bg-red-700 text-white rounded-full flex items-center justify-center text-sm font-bold">
+                  1
                 </div>
               </div>
+              <div className="bg-white p-6 md:p-8 rounded-xl shadow-lg border-l-4 border-red-700 hover:shadow-xl transition-all duration-300">
+                <h3 className="text-xl md:text-2xl font-bold text-primary mb-3">
+                  Late Shri Nagendra Dutt Sharma
+                </h3>
+                <p className="text-lg text-red-700 font-semibold mb-3">
+                  License No. 1 Holder
+                </p>
+                <p className="text-muted-foreground leading-relaxed">
+                  Founded our legal heritage, establishing the foundation of trust and expertise that continues today.
+                </p>
+              </div>
+            </div>
 
-              {/* Third Generation */}
-              <div className="flex flex-col md:flex-row items-center relative">
-                <div className="md:w-1/2 md:pr-8 text-center md:text-right mb-4 md:mb-0">
-                  <div className="bg-gradient-to-r from-primary/10 to-blue-50 p-6 rounded-xl shadow-lg border-l-4 border-primary">
-                    <h3 className="text-xl md:text-2xl font-bold text-primary mb-2">Advocate Ajay Shankar Sharma</h3>
-                    <p className="text-lg text-primary font-semibold mb-2">Current Legal Expert</p>
-                    <p className="text-muted-foreground">Leading the third generation with 33+ years of experience, combining traditional expertise with modern digital solutions.</p>
-                  </div>
+            {/* Second Generation */}
+            <div className="text-center group">
+              <div className="relative mb-6 md:mb-8">
+                <div className="w-32 h-40 md:w-40 md:h-48 lg:w-48 lg:h-56 mx-auto rounded-2xl overflow-hidden border-4 border-red-700 shadow-2xl bg-white transform group-hover:scale-105 transition-all duration-300">
+                  <img 
+                    src="/lovable-uploads/4d373dc0-a905-4b85-aa59-a2dde192f61f.png" 
+                    alt="Late Shri Narottam Dutt Sharma" 
+                    className="w-full h-full object-cover object-center scale-110"
+                  />
                 </div>
-                <div className="md:absolute md:left-1/2 md:transform md:-translate-x-1/2">
-                  <div className="w-20 h-28 md:w-24 md:h-32 rounded-lg overflow-hidden border-4 border-primary shadow-xl bg-white">
-                    <img 
-                      src="/lovable-uploads/7fcb1cb6-ab59-4fd4-ac3a-873cde116cc8.png" 
-                      alt="Advocate Ajay Shankar Sharma" 
-                      className="w-full h-full object-cover object-center"
-                    />
-                  </div>
+                <div className="absolute -top-2 -right-2 w-8 h-8 bg-red-700 text-white rounded-full flex items-center justify-center text-sm font-bold">
+                  2
                 </div>
-                <div className="md:w-1/2 md:pl-8"></div>
+              </div>
+              <div className="bg-white p-6 md:p-8 rounded-xl shadow-lg border-l-4 border-red-700 hover:shadow-xl transition-all duration-300">
+                <h3 className="text-xl md:text-2xl font-bold text-primary mb-3">
+                  Late Shri Narottam Dutt Sharma
+                </h3>
+                <p className="text-lg text-red-700 font-semibold mb-3">
+                  Second Generation
+                </p>
+                <p className="text-muted-foreground leading-relaxed">
+                  Continued the family tradition of legal excellence, expanding our expertise in property law and client service.
+                </p>
+              </div>
+            </div>
+
+            {/* Third Generation */}
+            <div className="text-center group">
+              <div className="relative mb-6 md:mb-8">
+                <div className="w-32 h-40 md:w-40 md:h-48 lg:w-48 lg:h-56 mx-auto rounded-2xl overflow-hidden border-4 border-primary shadow-2xl bg-white transform group-hover:scale-105 transition-all duration-300">
+                  <img 
+                    src="/lovable-uploads/7fcb1cb6-ab59-4fd4-ac3a-873cde116cc8.png" 
+                    alt="Advocate Ajay Shankar Sharma" 
+                    className="w-full h-full object-cover object-center"
+                  />
+                </div>
+                <div className="absolute -top-2 -right-2 w-8 h-8 bg-primary text-white rounded-full flex items-center justify-center text-sm font-bold">
+                  3
+                </div>
+              </div>
+              <div className="bg-gradient-to-r from-primary/10 to-blue-50 p-6 md:p-8 rounded-xl shadow-lg border-l-4 border-primary hover:shadow-xl transition-all duration-300">
+                <h3 className="text-xl md:text-2xl font-bold text-primary mb-3">
+                  Advocate Ajay Shankar Sharma
+                </h3>
+                <p className="text-lg text-primary font-semibold mb-3">
+                  Current Legal Expert
+                </p>
+                <p className="text-muted-foreground leading-relaxed">
+                  Leading the third generation with 33+ years of experience, combining traditional expertise with modern digital solutions.
+                </p>
               </div>
             </div>
           </div>
+        </div>
+      </section>
+
+      {/* Our Office & Service Gallery */}
+      <section className="py-12 md:py-16 lg:py-20 bg-background">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-8 md:mb-12 lg:mb-16">
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-primary mb-4 md:mb-6">
+              Our Office & Service Gallery
+            </h2>
+            <p className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto">
+              Take a look at our professional environment and the services we provide
+            </p>
+          </div>
+          
+          <OfficeGallery />
         </div>
       </section>
 

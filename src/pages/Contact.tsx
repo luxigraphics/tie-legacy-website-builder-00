@@ -3,10 +3,82 @@ import { Phone, Mail } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Link } from "react-router-dom";
+import { useState } from "react";
+import { useToast } from "@/hooks/use-toast";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 
 const Contact = () => {
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    message: ""
+  });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const { toast } = useToast();
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+
+    // Validate required fields
+    if (!formData.name || !formData.email || !formData.message) {
+      toast({
+        title: "Missing Information",
+        description: "Please fill in all required fields.",
+        variant: "destructive"
+      });
+      setIsSubmitting(false);
+      return;
+    }
+
+    // Create form data for FormSubmit
+    const submitData = new FormData();
+    submitData.append('name', formData.name);
+    submitData.append('email', formData.email);
+    submitData.append('message', formData.message);
+    submitData.append('_subject', 'New Contact Form Submission - Tiewalavakil');
+    submitData.append('_captcha', 'false');
+
+    try {
+      await fetch('https://formsubmit.co/a46a17efda441142f34035275ea6230e', {
+        method: 'POST',
+        body: submitData
+      });
+
+      // Show success toast
+      toast({
+        title: "Thank You!",
+        description: "आपका message successfully submit हो गया है! हमारी team आपको जल्दी contact करेगी।",
+        duration: 5000,
+      });
+
+      // Reset form
+      setFormData({
+        name: "",
+        email: "",
+        message: ""
+      });
+    } catch (error) {
+      toast({
+        title: "Submission Failed",
+        description: "कुछ गलत हुआ है। कृपया दोबारा कोशिश करें या direct call करें: 7037455191",
+        variant: "destructive",
+        duration: 5000,
+      });
+    }
+
+    setIsSubmitting(false);
+  };
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
+  };
+
   return (
     <div className="min-h-screen bg-background">
       <Header />
@@ -39,18 +111,20 @@ const Contact = () => {
                 <h2 className="text-xl md:text-2xl font-bold text-primary mb-4 md:mb-6">
                   Send us a Message
                 </h2>
-                <form className="space-y-4 md:space-y-6" action="mailto:contact@tiewalavakil.in" method="post" encType="text/plain">
+                <form className="space-y-4 md:space-y-6" onSubmit={handleSubmit}>
                   <div>
                     <label
                       htmlFor="name"
                       className="block text-sm md:text-base font-medium text-gray-700 mb-2"
                     >
-                      Your Name
+                      Your Name *
                     </label>
                     <input
                       type="text"
                       id="name"
                       name="name"
+                      value={formData.name}
+                      onChange={handleInputChange}
                       className="w-full px-3 md:px-4 py-2 md:py-3 rounded-md border border-gray-300 shadow-sm focus:border-primary focus:ring-primary text-sm md:text-base"
                       placeholder="Enter your name"
                       required
@@ -61,12 +135,14 @@ const Contact = () => {
                       htmlFor="email"
                       className="block text-sm md:text-base font-medium text-gray-700 mb-2"
                     >
-                      Your Email
+                      Your Email *
                     </label>
                     <input
                       type="email"
                       id="email"
                       name="email"
+                      value={formData.email}
+                      onChange={handleInputChange}
                       className="w-full px-3 md:px-4 py-2 md:py-3 rounded-md border border-gray-300 shadow-sm focus:border-primary focus:ring-primary text-sm md:text-base"
                       placeholder="Enter your email"
                       required
@@ -77,20 +153,26 @@ const Contact = () => {
                       htmlFor="message"
                       className="block text-sm md:text-base font-medium text-gray-700 mb-2"
                     >
-                      Message
+                      Message *
                     </label>
                     <textarea
                       id="message"
                       name="message"
                       rows={4}
+                      value={formData.message}
+                      onChange={handleInputChange}
                       className="w-full px-3 md:px-4 py-2 md:py-3 rounded-md border border-gray-300 shadow-sm focus:border-primary focus:ring-primary text-sm md:text-base resize-vertical"
                       placeholder="Write your message here..."
                       required
                     />
                   </div>
-                  <Button type="submit" className="w-full py-2 md:py-3 text-sm md:text-base">
+                  <Button 
+                    type="submit" 
+                    className="w-full py-2 md:py-3 text-sm md:text-base"
+                    disabled={isSubmitting}
+                  >
                     <Mail className="w-4 h-4 mr-2" aria-hidden="true" />
-                    Send Message
+                    {isSubmitting ? "Sending..." : "Send Message"}
                   </Button>
                 </form>
               </Card>

@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 
 const OfficeGallery = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [isAnimating, setIsAnimating] = useState(false);
 
   const images = [
     {
@@ -33,25 +34,47 @@ const OfficeGallery = () => {
     }
   ];
 
-  // Auto-slide effect
+  // Auto-slide effect with animation control
   useEffect(() => {
     const interval = setInterval(() => {
-      setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length);
-    }, 4000); // Change slide every 4 seconds
+      setIsAnimating(true);
+      setTimeout(() => {
+        setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length);
+        setIsAnimating(false);
+      }, 300);
+    }, 5000); // Change slide every 5 seconds
 
     return () => clearInterval(interval);
   }, [images.length]);
 
   const nextSlide = () => {
-    setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length);
+    if (!isAnimating) {
+      setIsAnimating(true);
+      setTimeout(() => {
+        setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length);
+        setIsAnimating(false);
+      }, 300);
+    }
   };
 
   const prevSlide = () => {
-    setCurrentIndex((prevIndex) => (prevIndex - 1 + images.length) % images.length);
+    if (!isAnimating) {
+      setIsAnimating(true);
+      setTimeout(() => {
+        setCurrentIndex((prevIndex) => (prevIndex - 1 + images.length) % images.length);
+        setIsAnimating(false);
+      }, 300);
+    }
   };
 
   const goToSlide = (index: number) => {
-    setCurrentIndex(index);
+    if (!isAnimating && index !== currentIndex) {
+      setIsAnimating(true);
+      setTimeout(() => {
+        setCurrentIndex(index);
+        setIsAnimating(false);
+      }, 300);
+    }
   };
 
   const getVisibleImages = () => {
@@ -64,35 +87,42 @@ const OfficeGallery = () => {
   };
 
   return (
-    <div className="relative w-full max-w-6xl mx-auto">
-      <div className="flex items-center justify-center space-x-2 md:space-x-4">
+    <div className="relative w-full max-w-7xl mx-auto">
+      <div className="flex items-center justify-center space-x-4 md:space-x-6 lg:space-x-8">
         <Button
           variant="outline"
           size="icon"
           onClick={prevSlide}
-          className="z-10 bg-white/80 hover:bg-white shadow-lg"
+          disabled={isAnimating}
+          className="z-10 bg-white/90 hover:bg-white shadow-xl border-2 border-primary/20 hover:border-primary/40 transition-all duration-300"
         >
-          <ChevronLeft className="w-4 h-4" />
+          <ChevronLeft className="w-5 h-5 text-primary" />
         </Button>
         
-        <div className="flex space-x-2 md:space-x-4 overflow-hidden">
+        <div className="flex space-x-4 md:space-x-6 lg:space-x-8 overflow-hidden">
           {getVisibleImages().map((image, idx) => (
             <div
               key={image.index}
-              className={`relative rounded-xl overflow-hidden shadow-lg transition-all duration-300 cursor-pointer ${
+              className={`relative rounded-2xl overflow-hidden shadow-2xl transition-all duration-500 cursor-pointer ${
                 idx === 1 
-                  ? 'w-48 h-64 md:w-64 md:h-80 lg:w-80 lg:h-96 scale-110 z-10' 
-                  : 'w-32 h-44 md:w-48 md:h-64 lg:w-56 lg:h-72 scale-90 opacity-75'
-              }`}
+                  ? 'w-80 h-96 md:w-96 md:h-[28rem] lg:w-[28rem] lg:h-[32rem] scale-110 z-10 border-4 border-primary' 
+                  : 'w-56 h-72 md:w-72 md:h-80 lg:w-80 lg:h-96 scale-90 opacity-80 hover:opacity-100 border-2 border-gray-300'
+              } ${isAnimating ? 'animate-pulse' : ''}`}
               onClick={() => idx !== 1 && goToSlide(image.index)}
             >
               <img 
                 src={image.src} 
                 alt={image.alt}
-                className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+                className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
               />
               {idx === 1 && (
-                <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
+              )}
+              {idx === 1 && (
+                <div className="absolute bottom-4 left-4 right-4 text-white">
+                  <h3 className="text-lg md:text-xl font-bold mb-1">{image.alt}</h3>
+                  <p className="text-sm opacity-90">Professional Legal Services</p>
+                </div>
               )}
             </div>
           ))}
@@ -102,20 +132,24 @@ const OfficeGallery = () => {
           variant="outline"
           size="icon"
           onClick={nextSlide}
-          className="z-10 bg-white/80 hover:bg-white shadow-lg"
+          disabled={isAnimating}
+          className="z-10 bg-white/90 hover:bg-white shadow-xl border-2 border-primary/20 hover:border-primary/40 transition-all duration-300"
         >
-          <ChevronRight className="w-4 h-4" />
+          <ChevronRight className="w-5 h-5 text-primary" />
         </Button>
       </div>
       
       {/* Dots indicator */}
-      <div className="flex justify-center mt-4 md:mt-6 space-x-2">
+      <div className="flex justify-center mt-6 md:mt-8 space-x-3">
         {images.map((_, index) => (
           <button
             key={index}
-            onClick={() => setCurrentIndex(index)}
-            className={`w-2 h-2 md:w-3 md:h-3 rounded-full transition-colors duration-200 ${
-              index === currentIndex ? 'bg-primary' : 'bg-gray-300'
+            onClick={() => goToSlide(index)}
+            disabled={isAnimating}
+            className={`w-3 h-3 md:w-4 md:h-4 rounded-full transition-all duration-300 ${
+              index === currentIndex 
+                ? 'bg-primary scale-125 shadow-lg' 
+                : 'bg-gray-300 hover:bg-gray-400'
             }`}
           />
         ))}

@@ -1,3 +1,4 @@
+
 import { Phone, MessageCircle, Calendar, Clock, Video, User, Mail, FileText, CheckCircle, IndianRupee } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -9,6 +10,13 @@ import { useToast } from "@/hooks/use-toast";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Newsletter from "@/components/Newsletter";
+
+// Declare Razorpay for TypeScript
+declare global {
+  interface Window {
+    Razorpay: any;
+  }
+}
 
 const BookConsultant = () => {
   const [formData, setFormData] = useState({
@@ -27,10 +35,10 @@ const BookConsultant = () => {
     setIsSubmitting(true);
 
     // Validate required fields
-    if (!formData.name || !formData.email || !formData.phone) {
+    if (!formData.name || !formData.email || !formData.phone || !formData.amount) {
       toast({
         title: "Missing Information",
-        description: "Please fill in all required fields.",
+        description: "Please fill in all required fields including amount.",
         variant: "destructive"
       });
       setIsSubmitting(false);
@@ -80,6 +88,82 @@ const BookConsultant = () => {
     }
 
     setIsSubmitting(false);
+  };
+
+  const handlePayment = () => {
+    if (!formData.name || !formData.email || !formData.phone || !formData.amount) {
+      toast({
+        title: "Missing Information",
+        description: "Please fill in all required fields before payment.",
+        variant: "destructive"
+      });
+      return;
+    }
+
+    const amount = parseFloat(formData.amount);
+    if (isNaN(amount) || amount <= 0) {
+      toast({
+        title: "Invalid Amount",
+        description: "Please enter a valid amount.",
+        variant: "destructive"
+      });
+      return;
+    }
+
+    // Load Razorpay script if not already loaded
+    if (!window.Razorpay) {
+      const script = document.createElement('script');
+      script.src = 'https://checkout.razorpay.com/v1/checkout.js';
+      script.onload = () => initiatePayment();
+      document.body.appendChild(script);
+    } else {
+      initiatePayment();
+    }
+  };
+
+  const initiatePayment = () => {
+    const options = {
+      key: 'rzp_live_nCPwk9KL7c1gif', // Your Razorpay Key ID
+      amount: parseFloat(formData.amount) * 100, // Amount in paise
+      currency: 'INR',
+      name: 'TiewalaVakil Legal Services',
+      description: `Legal Consultation - ${formData.consultationType || 'General'}`,
+      image: '/lovable-uploads/277f1b46-80f1-4bc3-85ff-7189eedb6bea.png',
+      handler: function (response: any) {
+        toast({
+          title: "Payment Successful!",
+          description: `Payment ID: ${response.razorpay_payment_id}. आपका consultation book हो गया है। हमारी team आपको जल्दी contact करेगी।`,
+          duration: 8000,
+        });
+        
+        // Submit form data after successful payment
+        handleSubmit(new Event('submit') as any);
+      },
+      prefill: {
+        name: formData.name,
+        email: formData.email,
+        contact: formData.phone
+      },
+      notes: {
+        consultation_type: formData.consultationType,
+        message: formData.message
+      },
+      theme: {
+        color: '#1e40af'
+      },
+      modal: {
+        ondismiss: function() {
+          toast({
+            title: "Payment Cancelled",
+            description: "Payment was cancelled. You can try again or contact us directly.",
+            variant: "destructive"
+          });
+        }
+      }
+    };
+
+    const rzp = new window.Razorpay(options);
+    rzp.open();
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
@@ -186,11 +270,11 @@ const BookConsultant = () => {
                 </h2>
                 <div className="bg-blue-50 p-4 rounded-lg mb-6">
                   <div className="flex items-center text-blue-800 mb-2">
-                    <Mail className="w-5 h-5 mr-2" />
-                    <span className="font-semibold">Direct Email Submission</span>
+                    <IndianRupee className="w-5 h-5 mr-2" />
+                    <span className="font-semibold">Secure Payment with Razorpay</span>
                   </div>
                   <p className="text-blue-700 text-sm">
-                    Your consultation request will be sent directly to our email. We'll contact you within 30 minutes.
+                    Pay securely using UPI, Cards, NetBanking or Wallets. Your consultation request will be processed immediately after payment.
                   </p>
                 </div>
                 <form onSubmit={handleSubmit} className="space-y-4 md:space-y-6">
@@ -256,13 +340,14 @@ const BookConsultant = () => {
                       </select>
                     </div>
                     <div>
-                      <Label htmlFor="amount" className="text-sm md:text-base">Preferred Amount (₹)</Label>
+                      <Label htmlFor="amount" className="text-sm md:text-base">Amount (₹) *</Label>
                       <Input
                         id="amount"
                         name="amount"
                         type="number"
                         placeholder="Enter amount in ₹"
                         min="1"
+                        required
                         className="mt-1"
                         value={formData.amount}
                         onChange={handleInputChange}
@@ -283,14 +368,25 @@ const BookConsultant = () => {
                     />
                   </div>
 
-                  <Button 
-                    type="submit" 
-                    className="w-full text-base md:text-lg font-semibold py-3 md:py-4"
-                    disabled={isSubmitting}
-                  >
-                    <Mail className="w-4 h-4 md:w-5 md:h-5 mr-2" aria-hidden="true" />
-                    {isSubmitting ? "Sending..." : "Send Consultation Request"}
-                  </Button>
+                  <div className="flex flex-col sm:flex-row gap-4">
+                    <Button 
+                      type="button"
+                      onClick={handlePayment}
+                      className="flex-1 text-base md:text-lg font-semibold py-3 md:py-4 bg-green-600 hover:bg-green-700"
+                    >
+                      <IndianRupee className="w-4 h-4 md:w-5 md:h-5 mr-2" aria-hidden="true" />
+                      Pay Now & Book
+                    </Button>
+                    <Button 
+                      type="submit" 
+                      variant="outline"
+                      className="flex-1 text-base md:text-lg font-semibold py-3 md:py-4"
+                      disabled={isSubmitting}
+                    >
+                      <Mail className="w-4 h-4 md:w-5 md:h-5 mr-2" aria-hidden="true" />
+                      {isSubmitting ? "Sending..." : "Book Without Payment"}
+                    </Button>
+                  </div>
                 </form>
               </CardContent>
             </Card>

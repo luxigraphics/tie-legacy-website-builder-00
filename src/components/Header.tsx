@@ -29,16 +29,16 @@ const Header = () => {
             <Link to="/" className={`text-sm xl:text-base hover:text-primary transition-colors font-medium ${isActive('/') ? 'text-primary' : 'text-foreground'}`}>
               Home
             </Link>
-            <Link to="/about" className={`text-sm xl:text-base hover:text-primary transition-colors font-medium ${isActive('/about') ? 'text-primary' : 'text-foreground'}`}>
+            <Link to="/about-us" className={`text-sm xl:text-base hover:text-primary transition-colors font-medium ${isActive('/about-us') ? 'text-primary' : 'text-foreground'}`}>
               About Us
             </Link>
             <Link to="/services" className={`text-sm xl:text-base hover:text-primary transition-colors font-medium ${isActive('/services') ? 'text-primary' : 'text-foreground'}`}>
               Services
             </Link>
-            <Link to="/blog" className={`text-sm xl:text-base hover:text-primary transition-colors font-medium ${isActive('/blog') ? 'text-primary' : 'text-foreground'}`}>
-              Blog
+            <Link to="/blogs" className={`text-sm xl:text-base hover:text-primary transition-colors font-medium ${isActive('/blogs') ? 'text-primary' : 'text-foreground'}`}>
+              Blogs
             </Link>
-            <Link to="/contact" className={`text-sm xl:text-base hover:text-primary transition-colors font-medium ${isActive('/contact') ? 'text-primary' : 'text-foreground'}`}>
+            <Link to="/contact-us" className={`text-sm xl:text-base hover:text-primary transition-colors font-medium ${isActive('/contact-us') ? 'text-primary' : 'text-foreground'}`}>
               Contact Us
             </Link>
           </nav>
@@ -77,16 +77,16 @@ const Header = () => {
               <Link to="/" className={`hover:text-primary transition-colors font-medium py-2 ${isActive('/') ? 'text-primary' : 'text-foreground'}`}>
                 Home
               </Link>
-              <Link to="/about" className={`hover:text-primary transition-colors font-medium py-2 ${isActive('/about') ? 'text-primary' : 'text-foreground'}`}>
+              <Link to="/about-us" className={`hover:text-primary transition-colors font-medium py-2 ${isActive('/about-us') ? 'text-primary' : 'text-foreground'}`}>
                 About Us
               </Link>
               <Link to="/services" className={`hover:text-primary transition-colors font-medium py-2 ${isActive('/services') ? 'text-primary' : 'text-foreground'}`}>
                 Services
               </Link>
-              <Link to="/blog" className={`hover:text-primary transition-colors font-medium py-2 ${isActive('/blog') ? 'text-primary' : 'text-foreground'}`}>
-                Blog
+              <Link to="/blogs" className={`hover:text-primary transition-colors font-medium py-2 ${isActive('/blogs') ? 'text-primary' : 'text-foreground'}`}>
+                Blogs
               </Link>
-              <Link to="/contact" className={`hover:text-primary transition-colors font-medium py-2 ${isActive('/contact') ? 'text-primary' : 'text-foreground'}`}>
+              <Link to="/contact-us" className={`hover:text-primary transition-colors font-medium py-2 ${isActive('/contact-us') ? 'text-primary' : 'text-foreground'}`}>
                 Contact Us
               </Link>
               <div className="flex flex-col space-y-2 pt-2">
