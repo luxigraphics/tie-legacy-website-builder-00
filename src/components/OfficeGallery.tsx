@@ -88,22 +88,23 @@ const OfficeGallery = () => {
 
   return (
     <div className="relative w-full max-w-7xl mx-auto">
-      <div className="flex items-center justify-center space-x-4 md:space-x-6 lg:space-x-8">
+      {/* Fixed height container to prevent movement */}
+      <div className="h-[28rem] md:h-[32rem] lg:h-[36rem] flex items-center justify-center space-x-4 md:space-x-6 lg:space-x-8">
         <Button
           variant="outline"
           size="icon"
           onClick={prevSlide}
           disabled={isAnimating}
-          className="z-10 bg-white/90 hover:bg-white shadow-xl border-2 border-primary/20 hover:border-primary/40 transition-all duration-300"
+          className="z-10 bg-white/90 hover:bg-white shadow-xl border-2 border-primary/20 hover:border-primary/40 transition-all duration-300 flex-shrink-0"
         >
           <ChevronLeft className="w-5 h-5 text-primary" />
         </Button>
         
-        <div className="flex space-x-4 md:space-x-6 lg:space-x-8 overflow-hidden">
+        <div className="flex space-x-4 md:space-x-6 lg:space-x-8 overflow-hidden flex-1 justify-center items-center">
           {getVisibleImages().map((image, idx) => (
             <div
               key={image.index}
-              className={`relative rounded-2xl overflow-hidden shadow-2xl transition-all duration-500 cursor-pointer ${
+              className={`relative rounded-2xl overflow-hidden shadow-2xl transition-all duration-500 cursor-pointer flex-shrink-0 ${
                 idx === 1 
                   ? 'w-80 h-96 md:w-96 md:h-[28rem] lg:w-[28rem] lg:h-[32rem] scale-110 z-10 border-4 border-primary' 
                   : 'w-56 h-72 md:w-72 md:h-80 lg:w-80 lg:h-96 scale-90 opacity-80 hover:opacity-100 border-2 border-gray-300'
@@ -133,7 +134,7 @@ const OfficeGallery = () => {
           size="icon"
           onClick={nextSlide}
           disabled={isAnimating}
-          className="z-10 bg-white/90 hover:bg-white shadow-xl border-2 border-primary/20 hover:border-primary/40 transition-all duration-300"
+          className="z-10 bg-white/90 hover:bg-white shadow-xl border-2 border-primary/20 hover:border-primary/40 transition-all duration-300 flex-shrink-0"
         >
           <ChevronRight className="w-5 h-5 text-primary" />
         </Button>

@@ -21,14 +21,14 @@ const Blog = () => {
     },
     {
       id: 2,
-      title: "Common Property Documentation Mistakes That Can Cost You Lakhs",
-      excerpt: "Property documentation errors are more common than you think. Learn about the most frequent mistakes property buyers make and how proper legal guidance can save you from financial losses.",
+      title: "Trusted Property Legal Services in Hapur | बैनामा लेखक | Advocate Ajay Shankar Sharma",
+      excerpt: "Are you looking for reliable, affordable, and legally sound property services in Hapur? Meet Advocate Ajay Shankar Sharma, one of the most trusted and experienced बैनामा लेखक (Deed Writers) in Hapur, offering over 33 years of legal expertise and a family legacy of legal service since the 1950s.",
       author: "Advocate Ajay Shankar Sharma", 
       date: "December 10, 2024",
-      readTime: "4 min read",
+      readTime: "8 min read",
       image: "/lovable-uploads/66396184-1e67-4743-938c-cd5ecac431d9.png",
-      tags: ["Documentation", "Property Law", "Legal Tips"],
-      slug: "property-documentation-mistakes"
+      tags: ["बैनामा लेखक", "Property Law", "Hapur Legal Services"],
+      slug: "trusted-property-legal-services-hapur"
     }
   ];
 
@@ -120,7 +120,7 @@ const Blog = () => {
           <p className="text-sm md:text-base lg:text-lg mb-4 md:mb-6 lg:mb-8 max-w-2xl mx-auto">
             Have questions about property law or need expert legal advice? Contact us today.
           </p>
-          <div className="flex flex-col md:flex-row gap-4 md:gap-8 justify-center">
+          <div className="flex flex-col md:flex-row gap-6 md:gap-8 justify-center">
             <a href="/contact-us">
               <Button size="lg" variant="secondary" className="font-semibold px-4 md:px-6 lg:px-8 py-2 md:py-3 lg:py-4 w-full md:w-auto text-sm md:text-base">
                 Contact Us
