@@ -4,7 +4,6 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import OfficeGallery from "@/components/OfficeGallery";
 
 const About = () => {
   return (
@@ -59,7 +58,7 @@ const About = () => {
         </div>
       </section>
 
-      {/* Legacy Timeline - Updated with home page style */}
+      {/* Legacy Timeline - Same as homepage style */}
       <section className="py-12 md:py-16 lg:py-20 bg-gradient-to-b from-blue-50 to-white">
         <div className="container mx-auto px-4">
           <div className="text-center mb-8 md:mb-12 lg:mb-16">
@@ -75,7 +74,7 @@ const About = () => {
             {/* First Generation */}
             <div className="text-center group">
               <div className="relative mb-6 md:mb-8">
-                <div className="w-32 h-40 md:w-40 md:h-48 lg:w-48 lg:h-56 mx-auto rounded-2xl overflow-hidden border-4 border-red-700 shadow-2xl bg-white transform group-hover:scale-105 transition-all duration-300">
+                <div className="w-40 h-48 md:w-48 md:h-56 lg:w-56 lg:h-64 mx-auto rounded-2xl overflow-hidden border-4 border-red-700 shadow-2xl bg-white transform group-hover:scale-105 transition-all duration-300">
                   <img 
                     src="/lovable-uploads/07000678-35ac-4da5-95ff-0e13b8936274.png" 
                     alt="Late Shri Nagendra Dutt Sharma" 
@@ -102,7 +101,7 @@ const About = () => {
             {/* Second Generation */}
             <div className="text-center group">
               <div className="relative mb-6 md:mb-8">
-                <div className="w-32 h-40 md:w-40 md:h-48 lg:w-48 lg:h-56 mx-auto rounded-2xl overflow-hidden border-4 border-red-700 shadow-2xl bg-white transform group-hover:scale-105 transition-all duration-300">
+                <div className="w-40 h-48 md:w-48 md:h-56 lg:w-56 lg:h-64 mx-auto rounded-2xl overflow-hidden border-4 border-red-700 shadow-2xl bg-white transform group-hover:scale-105 transition-all duration-300">
                   <img 
                     src="/lovable-uploads/4d373dc0-a905-4b85-aa59-a2dde192f61f.png" 
                     alt="Late Shri Narottam Dutt Sharma" 
@@ -129,7 +128,7 @@ const About = () => {
             {/* Third Generation */}
             <div className="text-center group">
               <div className="relative mb-6 md:mb-8">
-                <div className="w-32 h-40 md:w-40 md:h-48 lg:w-48 lg:h-56 mx-auto rounded-2xl overflow-hidden border-4 border-primary shadow-2xl bg-white transform group-hover:scale-105 transition-all duration-300">
+                <div className="w-40 h-48 md:w-48 md:h-56 lg:w-56 lg:h-64 mx-auto rounded-2xl overflow-hidden border-4 border-primary shadow-2xl bg-white transform group-hover:scale-105 transition-all duration-300">
                   <img 
                     src="/lovable-uploads/7fcb1cb6-ab59-4fd4-ac3a-873cde116cc8.png" 
                     alt="Advocate Ajay Shankar Sharma" 
@@ -153,22 +152,6 @@ const About = () => {
               </div>
             </div>
           </div>
-        </div>
-      </section>
-
-      {/* Our Office & Service Gallery */}
-      <section className="py-12 md:py-16 lg:py-20 bg-background">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-8 md:mb-12 lg:mb-16">
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-primary mb-4 md:mb-6">
-              Our Office & Service Gallery
-            </h2>
-            <p className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto">
-              Take a look at our professional environment and the services we provide
-            </p>
-          </div>
-          
-          <OfficeGallery />
         </div>
       </section>
 

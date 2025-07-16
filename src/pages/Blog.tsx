@@ -36,11 +36,11 @@ const Blog = () => {
     <div className="min-h-screen bg-background">
       <Header />
 
-      {/* Banner Section - Full width, original size */}
+      {/* New Banner Section */}
       <section className="relative w-full">
         <img 
-          src="/lovable-uploads/ebd710f6-4054-42d6-b8df-624848df7e59.png"
-          alt="Legal Insights Banner"
+          src="/lovable-uploads/dd8a18eb-9d39-4581-b864-81749e187f1a.png"
+          alt="Expert Legal Solutions Banner"
           className="w-full h-auto object-contain"
         />
       </section>
@@ -111,7 +111,7 @@ const Blog = () => {
 
       <Newsletter />
 
-      {/* Contact CTA with improved spacing */}
+      {/* Contact CTA with improved spacing and contact buttons */}
       <section className="py-6 md:py-8 lg:py-12 xl:py-16 bg-primary text-primary-foreground">
         <div className="container mx-auto px-4 text-center">
           <h2 className="text-xl md:text-2xl lg:text-3xl xl:text-4xl font-bold mb-3 md:mb-4 lg:mb-6">
@@ -120,15 +120,15 @@ const Blog = () => {
           <p className="text-sm md:text-base lg:text-lg mb-4 md:mb-6 lg:mb-8 max-w-2xl mx-auto">
             Have questions about property law or need expert legal advice? Contact us today.
           </p>
-          <div className="flex flex-col md:flex-row gap-6 md:gap-8 justify-center">
+          <div className="flex flex-col md:flex-row gap-4 md:gap-8 justify-center">
             <a href="/contact-us">
               <Button size="lg" variant="secondary" className="font-semibold px-4 md:px-6 lg:px-8 py-2 md:py-3 lg:py-4 w-full md:w-auto text-sm md:text-base">
                 Contact Us
               </Button>
             </a>
-            <a href="tel:7037455191">
+            <a href="https://wa.me/917037455191" target="_blank" rel="noopener noreferrer">
               <Button size="lg" className="font-semibold px-4 md:px-6 lg:px-8 py-2 md:py-3 lg:py-4 border-white text-white bg-transparent border-2 w-full md:w-auto text-sm md:text-base">
-                Call: 7037455191
+                Chat Now
               </Button>
             </a>
           </div>

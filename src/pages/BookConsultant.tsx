@@ -23,7 +23,6 @@ const BookConsultant = () => {
     name: "",
     email: "",
     phone: "",
-    amount: "",
     consultationType: "",
     message: ""
   });
@@ -35,10 +34,10 @@ const BookConsultant = () => {
     setIsSubmitting(true);
 
     // Validate required fields
-    if (!formData.name || !formData.email || !formData.phone || !formData.amount) {
+    if (!formData.name || !formData.email || !formData.phone) {
       toast({
         title: "Missing Information",
-        description: "Please fill in all required fields including amount.",
+        description: "Please fill in all required fields.",
         variant: "destructive"
       });
       setIsSubmitting(false);
@@ -50,7 +49,6 @@ const BookConsultant = () => {
     submitData.append('name', formData.name);
     submitData.append('email', formData.email);
     submitData.append('phone', formData.phone);
-    submitData.append('amount', formData.amount);
     submitData.append('consultationType', formData.consultationType);
     submitData.append('message', formData.message);
     submitData.append('_subject', 'New Consultation Booking - Tiewalavakil');
@@ -74,7 +72,6 @@ const BookConsultant = () => {
         name: "",
         email: "",
         phone: "",
-        amount: "",
         consultationType: "",
         message: ""
       });
@@ -91,7 +88,7 @@ const BookConsultant = () => {
   };
 
   const handlePayment = () => {
-    if (!formData.name || !formData.email || !formData.phone || !formData.amount) {
+    if (!formData.name || !formData.email || !formData.phone || !formData.consultationType) {
       toast({
         title: "Missing Information",
         description: "Please fill in all required fields before payment.",
@@ -100,34 +97,48 @@ const BookConsultant = () => {
       return;
     }
 
-    const amount = parseFloat(formData.amount);
-    if (isNaN(amount) || amount <= 0) {
-      toast({
-        title: "Invalid Amount",
-        description: "Please enter a valid amount.",
-        variant: "destructive"
-      });
-      return;
+    // Get amount based on consultation type
+    let amount = 0;
+    switch (formData.consultationType) {
+      case "phone":
+        amount = 500;
+        break;
+      case "video":
+        amount = 800;
+        break;
+      case "whatsapp":
+        amount = 300;
+        break;
+      case "document":
+        amount = 1500;
+        break;
+      default:
+        toast({
+          title: "Invalid Selection",
+          description: "Please select a consultation type.",
+          variant: "destructive"
+        });
+        return;
     }
 
     // Load Razorpay script if not already loaded
     if (!window.Razorpay) {
       const script = document.createElement('script');
       script.src = 'https://checkout.razorpay.com/v1/checkout.js';
-      script.onload = () => initiatePayment();
+      script.onload = () => initiatePayment(amount);
       document.body.appendChild(script);
     } else {
-      initiatePayment();
+      initiatePayment(amount);
     }
   };
 
-  const initiatePayment = () => {
+  const initiatePayment = (amount: number) => {
     const options = {
       key: 'rzp_live_nCPwk9KL7c1gif', // Your Razorpay Key ID
-      amount: parseFloat(formData.amount) * 100, // Amount in paise
+      amount: amount * 100, // Amount in paise
       currency: 'INR',
       name: 'TiewalaVakil Legal Services',
-      description: `Legal Consultation - ${formData.consultationType || 'General'}`,
+      description: `Legal Consultation - ${formData.consultationType}`,
       image: '/lovable-uploads/277f1b46-80f1-4bc3-85ff-7189eedb6bea.png',
       handler: function (response: any) {
         toast({
@@ -321,38 +332,22 @@ const BookConsultant = () => {
                     />
                   </div>
 
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
-                    <div>
-                      <Label htmlFor="consultationType" className="text-sm md:text-base">Consultation Type</Label>
-                      <select
-                        id="consultationType"
-                        name="consultationType"
-                        className="w-full p-2 md:p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-primary focus:border-transparent mt-1 text-sm md:text-base"
-                        value={formData.consultationType}
-                        onChange={handleInputChange}
-                      >
-                        <option value="">Select consultation type</option>
-                        <option value="phone">Phone Consultation - ₹500</option>
-                        <option value="video">Video Consultation - ₹800</option>
-                        <option value="whatsapp">WhatsApp Consultation - ₹300</option>
-                        <option value="document">Document Review - ₹1500</option>
-                        <option value="custom">Custom Amount</option>
-                      </select>
-                    </div>
-                    <div>
-                      <Label htmlFor="amount" className="text-sm md:text-base">Amount (₹) *</Label>
-                      <Input
-                        id="amount"
-                        name="amount"
-                        type="number"
-                        placeholder="Enter amount in ₹"
-                        min="1"
-                        required
-                        className="mt-1"
-                        value={formData.amount}
-                        onChange={handleInputChange}
-                      />
-                    </div>
+                  <div>
+                    <Label htmlFor="consultationType" className="text-sm md:text-base">Consultation Type *</Label>
+                    <select
+                      id="consultationType"
+                      name="consultationType"
+                      required
+                      className="w-full p-2 md:p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-primary focus:border-transparent mt-1 text-sm md:text-base"
+                      value={formData.consultationType}
+                      onChange={handleInputChange}
+                    >
+                      <option value="">Select consultation type</option>
+                      <option value="phone">Phone Consultation - ₹500</option>
+                      <option value="video">Video Consultation - ₹800</option>
+                      <option value="whatsapp">WhatsApp Consultation - ₹300</option>
+                      <option value="document">Document Review - ₹1500</option>
+                    </select>
                   </div>
 
                   <div>
@@ -368,23 +363,14 @@ const BookConsultant = () => {
                     />
                   </div>
 
-                  <div className="flex flex-col sm:flex-row gap-4">
+                  <div className="flex flex-col gap-4">
                     <Button 
                       type="button"
                       onClick={handlePayment}
-                      className="flex-1 text-base md:text-lg font-semibold py-3 md:py-4 bg-green-600 hover:bg-green-700"
+                      className="w-full text-base md:text-lg font-semibold py-3 md:py-4 bg-green-600 hover:bg-green-700"
                     >
                       <IndianRupee className="w-4 h-4 md:w-5 md:h-5 mr-2" aria-hidden="true" />
-                      Pay Now & Book
-                    </Button>
-                    <Button 
-                      type="submit" 
-                      variant="outline"
-                      className="flex-1 text-base md:text-lg font-semibold py-3 md:py-4"
-                      disabled={isSubmitting}
-                    >
-                      <Mail className="w-4 h-4 md:w-5 md:h-5 mr-2" aria-hidden="true" />
-                      {isSubmitting ? "Sending..." : "Book Without Payment"}
+                      Pay Now & Book Consultation
                     </Button>
                   </div>
                 </form>
