@@ -1,4 +1,3 @@
-
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -16,6 +15,7 @@ import Privacy from "./pages/Privacy";
 import Terms from "./pages/Terms";
 import NotFound from "./pages/NotFound";
 import DisclaimerPopup from "./components/DisclaimerPopup";
+import BlogPost2 from "./pages/BlogPost2";
 
 const queryClient = new QueryClient();
 
@@ -46,6 +46,7 @@ const App = () => (
           <Route path="/contact-us" element={<Contact />} />
           <Route path="/blogs" element={<Blog />} />
           <Route path="/blogs/sale-deed-crucial-legal-document" element={<BlogPost />} />
+          <Route path="/blogs/trusted-property-legal-services-hapur" element={<BlogPost2 />} />
           <Route path="/privacy" element={<Privacy />} />
           <Route path="/terms" element={<Terms />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}

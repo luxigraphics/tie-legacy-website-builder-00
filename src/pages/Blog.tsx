@@ -1,4 +1,3 @@
-
 import { Calendar, User, Clock, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -95,7 +94,7 @@ const Blog = () => {
                       </div>
                     </div>
                     
-                    <a href={blog.id === 1 ? "/blogs/sale-deed-crucial-legal-document" : "#"}>
+                    <a href={blog.id === 1 ? "/blogs/sale-deed-crucial-legal-document" : "/blogs/trusted-property-legal-services-hapur"}>
                       <Button className="w-full font-semibold group text-sm md:text-base">
                         Read Full Article
                         <ArrowRight className="w-3 h-3 md:w-4 md:h-4 ml-2 group-hover:translate-x-1 transition-transform" />
@@ -120,7 +119,7 @@ const Blog = () => {
           <p className="text-sm md:text-base lg:text-lg mb-4 md:mb-6 lg:mb-8 max-w-2xl mx-auto">
             Have questions about property law or need expert legal advice? Contact us today.
           </p>
-          <div className="flex flex-col md:flex-row gap-6 md:gap-8 justify-center">
+          <div className="flex flex-col md:flex-row gap-4 md:gap-6 justify-center">
             <a href="/contact-us">
               <Button size="lg" variant="secondary" className="font-semibold px-4 md:px-6 lg:px-8 py-2 md:py-3 lg:py-4 w-full md:w-auto text-sm md:text-base">
                 Contact Us
