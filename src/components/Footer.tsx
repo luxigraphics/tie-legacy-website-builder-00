@@ -57,10 +57,10 @@ const Footer = () => {
             <h4 className="font-bold mb-4 md:mb-6 text-base md:text-lg lg:text-xl">Quick Links</h4>
             <div className="space-y-2 md:space-y-3 text-slate-600">
               <div><Link to="/services" className="hover:text-slate-800 transition-colors text-sm md:text-base lg:text-lg">Services</Link></div>
-              <div><Link to="/about" className="hover:text-slate-800 transition-colors text-sm md:text-base lg:text-lg">About Us</Link></div>
-              <div><Link to="/blog" className="hover:text-slate-800 transition-colors text-sm md:text-base lg:text-lg">Blog</Link></div>
+              <div><Link to="/about-us" className="hover:text-slate-800 transition-colors text-sm md:text-base lg:text-lg">About Us</Link></div>
+              <div><Link to="/blogs" className="hover:text-slate-800 transition-colors text-sm md:text-base lg:text-lg">Blog</Link></div>
               <div><Link to="/book-consultant" className="hover:text-slate-800 transition-colors text-sm md:text-base lg:text-lg">Book Consultant</Link></div>
-              <div><Link to="/contact" className="hover:text-slate-800 transition-colors text-sm md:text-base lg:text-lg">Contact</Link></div>
+              <div><Link to="/contact-us" className="hover:text-slate-800 transition-colors text-sm md:text-base lg:text-lg">Contact</Link></div>
             </div>
           </div>
           <div>

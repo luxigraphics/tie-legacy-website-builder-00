@@ -187,6 +187,13 @@ const BookConsultant = () => {
 
   const consultationTypes = [
     {
+      icon: MessageCircle,
+      title: "WhatsApp Consultation",
+      description: "Chat-based legal guidance",
+      duration: "Ongoing support",
+      price: "₹300"
+    },
+    {
       icon: Phone,
       title: "Phone Consultation",
       description: "Quick legal advice over phone call",
@@ -199,13 +206,6 @@ const BookConsultant = () => {
       description: "Face-to-face consultation via video call",
       duration: "30-45 minutes", 
       price: "₹800"
-    },
-    {
-      icon: MessageCircle,
-      title: "WhatsApp Consultation",
-      description: "Chat-based legal guidance",
-      duration: "Ongoing support",
-      price: "₹300"
     },
     {
       icon: FileText,
@@ -343,9 +343,9 @@ const BookConsultant = () => {
                       onChange={handleInputChange}
                     >
                       <option value="">Select consultation type</option>
+                      <option value="whatsapp">WhatsApp Consultation - ₹300</option>
                       <option value="phone">Phone Consultation - ₹500</option>
                       <option value="video">Video Consultation - ₹800</option>
-                      <option value="whatsapp">WhatsApp Consultation - ₹300</option>
                       <option value="document">Document Review - ₹1500</option>
                     </select>
                   </div>
